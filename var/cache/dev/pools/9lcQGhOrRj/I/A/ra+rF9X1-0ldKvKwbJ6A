@@ -4,6 +4,8 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
     $o = [
         clone (($p = &\Symfony\Component\VarExporter\Internal\Registry::$prototypes)['Doctrine\\ORM\\Mapping\\Entity'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('Doctrine\\ORM\\Mapping\\Entity')),
         clone ($p['ApiPlatform\\Core\\Annotation\\ApiResource'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('ApiPlatform\\Core\\Annotation\\ApiResource')),
+        clone ($p['ApiPlatform\\Core\\Annotation\\ApiFilter'] ?? \Symfony\Component\VarExporter\Internal\Registry::p('ApiPlatform\\Core\\Annotation\\ApiFilter')),
+        clone $p['ApiPlatform\\Core\\Annotation\\ApiFilter'],
     ],
     null,
     [
@@ -11,11 +13,17 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
             'repositoryClass' => [
                 'App\\Repository\\TraineeRepository',
             ],
+            'filterClass' => [
+                2 => 'ApiPlatform\\Core\\Bridge\\Doctrine\\Orm\\Filter\\SearchFilter',
+                'ApiPlatform\\Core\\Bridge\\Doctrine\\Orm\\Filter\\OrderFilter',
+            ],
         ],
     ],
     [
         $o[0],
         $o[1],
+        $o[2],
+        $o[3],
     ],
     []
 ); }];
