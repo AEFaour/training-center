@@ -19,6 +19,11 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
                     'order' => [
                         'sentAt' => 'desc',
                     ],
+                    'normalization_context' => [
+                        'groups' => [
+                            'invoices_read',
+                        ],
+                    ],
                 ],
             ],
             'filterClass' => [
