@@ -12,6 +12,33 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
             'repositoryClass' => [
                 'App\\Repository\\InvoiceRepository',
             ],
+            'itemOperations' => [
+                1 => [
+                    'GET',
+                    'PUT',
+                    'DELETE',
+                    'increment' => [
+                        'method' => 'post',
+                        'path' => '/invoices/{id}/increment',
+                        'controller' => 'App\\Controller\\InvoiceIncrementationController',
+                        'swagger_context' => [
+                            'summary' => 'Increment a Invoice',
+                            'description' => 'Increment the chrono of the invoice',
+                        ],
+                    ],
+                ],
+            ],
+            'subresourceOperations' => [
+                1 => [
+                    'api_trainees_invoices_get_subresource' => [
+                        'normalization_context' => [
+                            'groups' => [
+                                'invoices_subresource',
+                            ],
+                        ],
+                    ],
+                ],
+            ],
             'attributes' => [
                 1 => [
                     'pagination_enabled' => true,

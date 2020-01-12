@@ -1,3 +1,0 @@
-<?php //route_name_41d0c424d6274043fcc93ec4d7623e3d
-
-return [PHP_INT_MAX, 'api_trainees_get_item'];

@@ -458,6 +458,13 @@
     <service id="EasyCorp\EasyLog\EasyLogHandler" class="EasyCorp\EasyLog\EasyLogHandler" public="false">
       <argument>C:\Users\Anas FAOUR\Documents\training-center\var\log/dev.log</argument>
     </service>
+    <service id="App\Controller\InvoiceIncrementationController" class="App\Controller\InvoiceIncrementationController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.SXie53V.App\Controller\InvoiceIncrementationController"/>
+      </call>
+    </service>
     <service id="App\DataFixtures\AppFixtures" class="App\DataFixtures\AppFixtures" autowire="true" autoconfigure="true">
       <tag name="doctrine.fixture.orm"/>
       <argument type="service" id="security.user_password_encoder.generic"/>
@@ -5722,6 +5729,9 @@
       <argument>null</argument>
       <argument type="service" id="serializer.name_converter.metadata_aware" on-invalid="ignore"/>
     </service>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\InvoiceIncrementationController" class="App\Controller\InvoiceIncrementationController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\InvoiceIncrementationController" class="App\Controller\InvoiceIncrementationController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\InvoiceIncrementationController" class="App\Controller\InvoiceIncrementationController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\AppFixtures" class="App\DataFixtures\AppFixtures" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\DataFixtures\AppFixtures" class="App\DataFixtures\AppFixtures" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\InvoiceRepository" class="App\Repository\InvoiceRepository" autowire="true" abstract="true"/>
@@ -5913,9 +5923,19 @@
         <argument>make:migration</argument>
       </call>
     </service>
-    <service id=".service_locator.I3K77mT" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id=".service_locator.lO1JldD" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
-      <argument type="collection"/>
+      <argument type="collection">
+        <argument key="data" type="service" id=".errored..service_locator.lO1JldD.App\Entity\Invoice"/>
+      </argument>
+    </service>
+    <service id=".service_locator.VKPZEMy" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="App\Controller\InvoiceIncrementationController::__invoke" type="service" id=".service_locator.lO1JldD"/>
+        <argument key="App\Controller\InvoiceIncrementationController:__invoke" type="service" id=".service_locator.lO1JldD"/>
+        <argument key="App\Controller\InvoiceIncrementationController" type="service" id=".service_locator.lO1JldD"/>
+      </argument>
     </service>
     <service id=".service_locator.Y7gDuDN" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
@@ -6183,6 +6203,29 @@
         <argument key="translation.loader.yml" type="service" id="translation.loader.yml"/>
       </argument>
     </service>
+    <service id=".service_locator.SXie53V" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="doctrine" type="service" id="doctrine" on-invalid="ignore"/>
+        <argument key="form.factory" type="service" id="form.factory" on-invalid="ignore"/>
+        <argument key="http_kernel" type="service" id="http_kernel" on-invalid="ignore"/>
+        <argument key="parameter_bag" type="service" id="parameter_bag" on-invalid="ignore"/>
+        <argument key="request_stack" type="service" id="request_stack" on-invalid="ignore"/>
+        <argument key="router" type="service" id="router.default" on-invalid="ignore"/>
+        <argument key="security.authorization_checker" type="service" id="security.authorization_checker" on-invalid="ignore"/>
+        <argument key="security.csrf.token_manager" type="service" id="security.csrf.token_manager" on-invalid="ignore"/>
+        <argument key="security.token_storage" type="service" id="security.token_storage" on-invalid="ignore"/>
+        <argument key="serializer" type="service" id="serializer" on-invalid="ignore"/>
+        <argument key="session" type="service" id="session" on-invalid="ignore"/>
+        <argument key="twig" type="service" id="twig" on-invalid="ignore"/>
+      </argument>
+    </service>
+    <service id=".service_locator.SXie53V.App\Controller\InvoiceIncrementationController" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator_context" id="App\Controller\InvoiceIncrementationController"/>
+      <argument>App\Controller\InvoiceIncrementationController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.SXie53V" method="withContext"/>
+    </service>
     <service id=".service_locator.XSes1R5" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -6355,12 +6398,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
-      <argument type="service" id=".service_locator.I3K77mT"/>
+      <argument type="service" id=".service_locator.VKPZEMy"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver" public="false"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver" public="false">
-      <argument type="service" id=".service_locator.I3K77mT"/>
+      <argument type="service" id=".service_locator.VKPZEMy"/>
     </service>
     <service id=".debug.http_client.inner" class="Symfony\Contracts\HttpClient\HttpClientInterface" public="false">
       <argument type="collection"/>
@@ -6406,6 +6449,7 @@
       <argument type="service" id="api_platform.metadata.property.metadata_factory.cached"/>
       <argument type="service" id="api_platform.path_segment_name_generator.underscore"/>
     </service>
+    <service id=".errored..service_locator.lO1JldD.App\Entity\Invoice" class="App\Entity\Invoice"/>
     <service id="console.command_loader" class="Symfony\Component\Console\CommandLoader\ContainerCommandLoader" public="true">
       <argument type="service" id=".service_locator.6uSmfdB"/>
       <argument type="collection">
@@ -6869,7 +6913,7 @@
     <service id="ApiPlatform\Core\Security\ResourceAccessCheckerInterface" alias="api_platform.security.resource_access_checker"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.CmORmuK" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem" public="false"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.I3K77mT"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.VKPZEMy"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
     <service id="Psr\Log\LoggerInterface $consoleLogger" alias="monolog.logger.console"/>

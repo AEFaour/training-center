@@ -19,6 +19,7 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
                 3 => [
                     'trainees_read',
                     'invoices_read',
+                    'invoices_subresource',
                 ],
             ],
         ],

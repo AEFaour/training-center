@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -14,6 +15,11 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TraineeRepository")
  * @ApiResource(
+ *     collectionOperations={"GET", "POST"},
+ *     itemOperations={"GET", "PUT", "DELETE"},
+ *     subresourceOperations={
+ *          "invoices_get_subresource"={"path"="/trainees/{id}/invoices"}
+ *     },
  *     normalizationContext={
  *     "groups"= {"trainees_read"}
  *     }
@@ -58,6 +64,7 @@ class Trainee
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Invoice", mappedBy="trainee")
      * @Groups({"trainees_read"})
+     * @ApiSubresource()
      */
     private $invoices;
 

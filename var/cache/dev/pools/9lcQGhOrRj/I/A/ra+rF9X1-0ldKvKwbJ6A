@@ -13,6 +13,26 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
             'repositoryClass' => [
                 'App\\Repository\\TraineeRepository',
             ],
+            'collectionOperations' => [
+                1 => [
+                    'GET',
+                    'POST',
+                ],
+            ],
+            'itemOperations' => [
+                1 => [
+                    'GET',
+                    'PUT',
+                    'DELETE',
+                ],
+            ],
+            'subresourceOperations' => [
+                1 => [
+                    'invoices_get_subresource' => [
+                        'path' => '/trainees/{id}/invoices',
+                    ],
+                ],
+            ],
             'attributes' => [
                 1 => [
                     'normalization_context' => [

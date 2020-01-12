@@ -13,6 +13,7 @@ return [
         '/_profiler/search_bar' => [[['_route' => '_profiler_search_bar', '_controller' => 'web_profiler.controller.profiler::searchBarAction'], null, null, null, false, false, null]],
         '/_profiler/phpinfo' => [[['_route' => '_profiler_phpinfo', '_controller' => 'web_profiler.controller.profiler::phpinfoAction'], null, null, null, false, false, null]],
         '/_profiler/open' => [[['_route' => '_profiler_open_file', '_controller' => 'web_profiler.controller.profiler::openAction'], null, null, null, false, false, null]],
+        '/invoice/incrementation' => [[['_route' => 'invoice_incrementation', '_controller' => 'App\\Controller\\InvoiceIncrementationController::index'], null, null, null, false, false, null]],
     ],
     [ // $regexpList
         0 => '{^(?'
@@ -40,24 +41,30 @@ return [
                             .'|(?:\\.([^/]++))?(?'
                                 .'|(*:308)'
                             .')'
-                            .'|/([^/\\.]++)(?:\\.([^/]++))?(?'
-                                .'|(*:346)'
+                            .'|/(?'
+                                .'|([^/\\.]++)(?:\\.([^/]++))?(?'
+                                    .'|(*:349)'
+                                .')'
+                                .'|([^/]++)/increment(*:376)'
                             .')'
                         .')'
                         .'|trainees(?'
                             .'|(?:\\.([^/]++))?(?'
-                                .'|(*:385)'
+                                .'|(*:415)'
                             .')'
-                            .'|/([^/\\.]++)(?:\\.([^/]++))?(?'
-                                .'|(*:423)'
+                            .'|/(?'
+                                .'|([^/\\.]++)(?:\\.([^/]++))?(?'
+                                    .'|(*:456)'
+                                .')'
+                                .'|([^/]++)/invoices(*:482)'
                             .')'
                         .')'
                         .'|users(?'
                             .'|(?:\\.([^/]++))?(?'
-                                .'|(*:459)'
+                                .'|(*:518)'
                             .')'
                             .'|/([^/\\.]++)(?:\\.([^/]++))?(?'
-                                .'|(*:497)'
+                                .'|(*:556)'
                             .')'
                         .')'
                     .')'
@@ -79,27 +86,27 @@ return [
             [['_route' => 'api_invoices_get_collection', '_controller' => 'api_platform.action.get_collection', '_format' => null, '_api_resource_class' => 'App\\Entity\\Invoice', '_api_collection_operation_name' => 'get'], ['_format'], ['GET' => 0], null, false, true, null],
             [['_route' => 'api_invoices_post_collection', '_controller' => 'api_platform.action.post_collection', '_format' => null, '_api_resource_class' => 'App\\Entity\\Invoice', '_api_collection_operation_name' => 'post'], ['_format'], ['POST' => 0], null, false, true, null],
         ],
-        346 => [
-            [['_route' => 'api_invoices_get_item', '_controller' => 'api_platform.action.get_item', '_format' => null, '_api_resource_class' => 'App\\Entity\\Invoice', '_api_item_operation_name' => 'get'], ['id', '_format'], ['GET' => 0], null, false, true, null],
-            [['_route' => 'api_invoices_delete_item', '_controller' => 'api_platform.action.delete_item', '_format' => null, '_api_resource_class' => 'App\\Entity\\Invoice', '_api_item_operation_name' => 'delete'], ['id', '_format'], ['DELETE' => 0], null, false, true, null],
-            [['_route' => 'api_invoices_put_item', '_controller' => 'api_platform.action.put_item', '_format' => null, '_api_resource_class' => 'App\\Entity\\Invoice', '_api_item_operation_name' => 'put'], ['id', '_format'], ['PUT' => 0], null, false, true, null],
-            [['_route' => 'api_invoices_patch_item', '_controller' => 'api_platform.action.patch_item', '_format' => null, '_api_resource_class' => 'App\\Entity\\Invoice', '_api_item_operation_name' => 'patch'], ['id', '_format'], ['PATCH' => 0], null, false, true, null],
+        349 => [
+            [['_route' => 'api_invoices_GET_item', '_controller' => 'api_platform.action.get_item', '_format' => null, '_api_resource_class' => 'App\\Entity\\Invoice', '_api_item_operation_name' => 'GET'], ['id', '_format'], ['GET' => 0], null, false, true, null],
+            [['_route' => 'api_invoices_PUT_item', '_controller' => 'api_platform.action.put_item', '_format' => null, '_api_resource_class' => 'App\\Entity\\Invoice', '_api_item_operation_name' => 'PUT'], ['id', '_format'], ['PUT' => 0], null, false, true, null],
+            [['_route' => 'api_invoices_DELETE_item', '_controller' => 'api_platform.action.delete_item', '_format' => null, '_api_resource_class' => 'App\\Entity\\Invoice', '_api_item_operation_name' => 'DELETE'], ['id', '_format'], ['DELETE' => 0], null, false, true, null],
         ],
-        385 => [
-            [['_route' => 'api_trainees_get_collection', '_controller' => 'api_platform.action.get_collection', '_format' => null, '_api_resource_class' => 'App\\Entity\\Trainee', '_api_collection_operation_name' => 'get'], ['_format'], ['GET' => 0], null, false, true, null],
-            [['_route' => 'api_trainees_post_collection', '_controller' => 'api_platform.action.post_collection', '_format' => null, '_api_resource_class' => 'App\\Entity\\Trainee', '_api_collection_operation_name' => 'post'], ['_format'], ['POST' => 0], null, false, true, null],
+        376 => [[['_route' => 'api_invoices_increment_item', '_controller' => 'App\\Controller\\InvoiceIncrementationController', '_format' => null, '_api_resource_class' => 'App\\Entity\\Invoice', '_api_item_operation_name' => 'increment'], ['id'], ['POST' => 0], null, false, false, null]],
+        415 => [
+            [['_route' => 'api_trainees_GET_collection', '_controller' => 'api_platform.action.get_collection', '_format' => null, '_api_resource_class' => 'App\\Entity\\Trainee', '_api_collection_operation_name' => 'GET'], ['_format'], ['GET' => 0], null, false, true, null],
+            [['_route' => 'api_trainees_POST_collection', '_controller' => 'api_platform.action.post_collection', '_format' => null, '_api_resource_class' => 'App\\Entity\\Trainee', '_api_collection_operation_name' => 'POST'], ['_format'], ['POST' => 0], null, false, true, null],
         ],
-        423 => [
-            [['_route' => 'api_trainees_get_item', '_controller' => 'api_platform.action.get_item', '_format' => null, '_api_resource_class' => 'App\\Entity\\Trainee', '_api_item_operation_name' => 'get'], ['id', '_format'], ['GET' => 0], null, false, true, null],
-            [['_route' => 'api_trainees_delete_item', '_controller' => 'api_platform.action.delete_item', '_format' => null, '_api_resource_class' => 'App\\Entity\\Trainee', '_api_item_operation_name' => 'delete'], ['id', '_format'], ['DELETE' => 0], null, false, true, null],
-            [['_route' => 'api_trainees_put_item', '_controller' => 'api_platform.action.put_item', '_format' => null, '_api_resource_class' => 'App\\Entity\\Trainee', '_api_item_operation_name' => 'put'], ['id', '_format'], ['PUT' => 0], null, false, true, null],
-            [['_route' => 'api_trainees_patch_item', '_controller' => 'api_platform.action.patch_item', '_format' => null, '_api_resource_class' => 'App\\Entity\\Trainee', '_api_item_operation_name' => 'patch'], ['id', '_format'], ['PATCH' => 0], null, false, true, null],
+        456 => [
+            [['_route' => 'api_trainees_GET_item', '_controller' => 'api_platform.action.get_item', '_format' => null, '_api_resource_class' => 'App\\Entity\\Trainee', '_api_item_operation_name' => 'GET'], ['id', '_format'], ['GET' => 0], null, false, true, null],
+            [['_route' => 'api_trainees_PUT_item', '_controller' => 'api_platform.action.put_item', '_format' => null, '_api_resource_class' => 'App\\Entity\\Trainee', '_api_item_operation_name' => 'PUT'], ['id', '_format'], ['PUT' => 0], null, false, true, null],
+            [['_route' => 'api_trainees_DELETE_item', '_controller' => 'api_platform.action.delete_item', '_format' => null, '_api_resource_class' => 'App\\Entity\\Trainee', '_api_item_operation_name' => 'DELETE'], ['id', '_format'], ['DELETE' => 0], null, false, true, null],
         ],
-        459 => [
+        482 => [[['_route' => 'api_trainees_invoices_get_subresource', '_controller' => 'api_platform.action.get_subresource', '_format' => null, '_api_resource_class' => 'App\\Entity\\Invoice', '_api_subresource_operation_name' => 'api_trainees_invoices_get_subresource', '_api_subresource_context' => ['property' => 'invoices', 'identifiers' => [['id', 'App\\Entity\\Trainee', true]], 'collection' => true, 'operationId' => 'api_trainees_invoices_get_subresource']], ['id'], ['GET' => 0], null, false, false, null]],
+        518 => [
             [['_route' => 'api_users_get_collection', '_controller' => 'api_platform.action.get_collection', '_format' => null, '_api_resource_class' => 'App\\Entity\\User', '_api_collection_operation_name' => 'get'], ['_format'], ['GET' => 0], null, false, true, null],
             [['_route' => 'api_users_post_collection', '_controller' => 'api_platform.action.post_collection', '_format' => null, '_api_resource_class' => 'App\\Entity\\User', '_api_collection_operation_name' => 'post'], ['_format'], ['POST' => 0], null, false, true, null],
         ],
-        497 => [
+        556 => [
             [['_route' => 'api_users_get_item', '_controller' => 'api_platform.action.get_item', '_format' => null, '_api_resource_class' => 'App\\Entity\\User', '_api_item_operation_name' => 'get'], ['id', '_format'], ['GET' => 0], null, false, true, null],
             [['_route' => 'api_users_delete_item', '_controller' => 'api_platform.action.delete_item', '_format' => null, '_api_resource_class' => 'App\\Entity\\User', '_api_item_operation_name' => 'delete'], ['id', '_format'], ['DELETE' => 0], null, false, true, null],
             [['_route' => 'api_users_put_item', '_controller' => 'api_platform.action.put_item', '_format' => null, '_api_resource_class' => 'App\\Entity\\User', '_api_item_operation_name' => 'put'], ['id', '_format'], ['PUT' => 0], null, false, true, null],

@@ -15,7 +15,7 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
             ],
             'itemOperations' => [
                 [
-                    'get' => [
+                    'GET' => [
                         'method' => 'GET',
                         'input_formats' => [
                             'jsonld' => [
@@ -40,32 +40,7 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
                             ],
                         ],
                     ],
-                    'delete' => [
-                        'method' => 'DELETE',
-                        'input_formats' => [
-                            'jsonld' => [
-                                'application/ld+json',
-                            ],
-                            'json' => [
-                                'application/json',
-                            ],
-                            'html' => [
-                                'text/html',
-                            ],
-                        ],
-                        'output_formats' => [
-                            'jsonld' => [
-                                'application/ld+json',
-                            ],
-                            'json' => [
-                                'application/json',
-                            ],
-                            'html' => [
-                                'text/html',
-                            ],
-                        ],
-                    ],
-                    'put' => [
+                    'PUT' => [
                         'method' => 'PUT',
                         'input_formats' => [
                             'jsonld' => [
@@ -90,11 +65,17 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
                             ],
                         ],
                     ],
-                    'patch' => [
-                        'method' => 'PATCH',
+                    'DELETE' => [
+                        'method' => 'DELETE',
                         'input_formats' => [
+                            'jsonld' => [
+                                'application/ld+json',
+                            ],
                             'json' => [
-                                'application/merge-patch+json',
+                                'application/json',
+                            ],
+                            'html' => [
+                                'text/html',
                             ],
                         ],
                         'output_formats' => [
@@ -113,7 +94,7 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
             ],
             'collectionOperations' => [
                 [
-                    'get' => [
+                    'GET' => [
                         'method' => 'GET',
                         'input_formats' => [
                             'jsonld' => [
@@ -138,8 +119,37 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
                             ],
                         ],
                     ],
-                    'post' => [
+                    'POST' => [
                         'method' => 'POST',
+                        'input_formats' => [
+                            'jsonld' => [
+                                'application/ld+json',
+                            ],
+                            'json' => [
+                                'application/json',
+                            ],
+                            'html' => [
+                                'text/html',
+                            ],
+                        ],
+                        'output_formats' => [
+                            'jsonld' => [
+                                'application/ld+json',
+                            ],
+                            'json' => [
+                                'application/json',
+                            ],
+                            'html' => [
+                                'text/html',
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            'subresourceOperations' => [
+                [
+                    'invoices_get_subresource' => [
+                        'path' => '/trainees/{id}/invoices',
                         'input_formats' => [
                             'jsonld' => [
                                 'application/ld+json',

@@ -11,6 +11,19 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\InvoiceRepository")
  * @ApiResource(
+ *     subresourceOperations={
+ *          "api_trainees_invoices_get_subresource"={
+ *              "normalization_context"={"groups"={"invoices_subresource"}}
+ *          }
+ *     },
+ *     itemOperations={"GET", "PUT", "DELETE", "increment"={
+ *     "method"="post",
+ *      "path"="/invoices/{id}/increment",
+ *      "controller"="App\Controller\InvoiceIncrementationController",
+ *      "swagger_context"={
+ *            "summary"="Increment a Invoice",
+ *             "description"="Increment the chrono of the invoice"
+ *      }}},
  *  attributes={
  *       "pagination_enabled"=true,
  *       "pagination_items_per_page": 20,
@@ -18,7 +31,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     },
  *     normalizationContext={"groups"= {"invoices_read"}}
  * )
- *  @ApiFilter(OrderFilter::class, properties={"amount", "sentAt"})
+ * @ApiFilter(OrderFilter::class, properties={"amount", "sentAt"})
  */
 class Invoice
 {
@@ -26,25 +39,25 @@ class Invoice
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"invoices_read", "trainees_read"})
+     * @Groups({"invoices_read", "trainees_read", "invoices_subresource"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="float")
-     * @Groups({"invoices_read", "trainees_read"})
+     * @Groups({"invoices_read", "trainees_read", "invoices_subresource"})
      */
     private $amount;
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups({"invoices_read", "trainees_read"})
+     * @Groups({"invoices_read", "trainees_read", "invoices_subresource"})
      */
     private $sentAt;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"invoices_read", "trainees_read"})
+     * @Groups({"invoices_read", "trainees_read", "invoices_subresource"})
      */
     private $status;
 
@@ -57,12 +70,12 @@ class Invoice
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"invoices_read", "trainees_read"})
+     * @Groups({"invoices_read", "trainees_read", "invoices_subresource"})
      */
     private $chrono;
 
     /**
-     * @Groups({"invoices_read"})
+     * @Groups({"invoices_read", "invoices_subresource"})
      * @return User
      */
     public function getUser(): User
