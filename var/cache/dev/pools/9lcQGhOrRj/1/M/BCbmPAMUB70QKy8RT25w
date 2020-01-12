@@ -51,6 +51,9 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
                             'invoices_read',
                         ],
                     ],
+                    'denormalization_context' => [
+                        'disable_type_enforcement' => true,
+                    ],
                 ],
             ],
             'filterClass' => [

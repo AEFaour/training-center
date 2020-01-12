@@ -461,6 +461,7 @@
     <service id="App\Controller\InvoiceIncrementationController" class="App\Controller\InvoiceIncrementationController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
+      <argument type="service" id="doctrine.orm.default_entity_manager"/>
       <call method="setContainer">
         <argument type="service" id=".service_locator.SXie53V.App\Controller\InvoiceIncrementationController"/>
       </call>
@@ -480,6 +481,9 @@
     <service id="App\Repository\UserRepository" class="App\Repository\UserRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Serializer\PatchedDateTimeNormalizer" class="App\Serializer\PatchedDateTimeNormalizer" autowire="true" autoconfigure="true">
+      <tag name="serializer.normalizer"/>
     </service>
     <service id="argument_metadata_factory" class="Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadataFactory" public="false"/>
     <service id="response_listener" class="Symfony\Component\HttpKernel\EventListener\ResponseListener" public="false">
@@ -3120,6 +3124,7 @@
     </service>
     <service id="serializer" class="Symfony\Component\Serializer\Serializer" public="true">
       <argument type="collection">
+        <argument type="service" id="App\Serializer\PatchedDateTimeNormalizer"/>
         <argument type="service" id="api_platform.swagger.normalizer.api_gateway"/>
         <argument type="service" id="api_platform.hydra.normalizer.constraint_violation_list"/>
         <argument type="service" id="api_platform.problem.normalizer.constraint_violation_list"/>
@@ -5740,6 +5745,9 @@
     <service id=".abstract.instanceof.App\Repository\TraineeRepository" class="App\Repository\TraineeRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\UserRepository" class="App\Repository\UserRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\UserRepository" class="App\Repository\UserRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Serializer\Normalizer\NormalizerInterface.0.App\Serializer\PatchedDateTimeNormalizer" class="App\Serializer\PatchedDateTimeNormalizer" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Serializer\Normalizer\DenormalizerInterface.0.App\Serializer\PatchedDateTimeNormalizer" class="App\Serializer\PatchedDateTimeNormalizer" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Serializer\PatchedDateTimeNormalizer" class="App\Serializer\PatchedDateTimeNormalizer" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".service_locator.CmORmuK" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection">

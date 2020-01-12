@@ -6,7 +6,7 @@
 use Symfony\Component\DependencyInjection\Dumper\Preloader;
 
 require dirname(__DIR__, 3).'\\vendor/autoload.php';
-require __DIR__.'/Container8suFF7z/App_KernelDevDebugContainer.php';
+require __DIR__.'/ContainerEeVaim4/App_KernelDevDebugContainer.php';
 
 $classes = [];
 $classes[] = 'App\Kernel';
@@ -76,6 +76,7 @@ $classes[] = 'Doctrine\Common\Annotations\AnnotationRegistry';
 $classes[] = 'Symfony\Component\PropertyAccess\PropertyAccessor';
 $classes[] = 'Symfony\Component\Cache\Adapter\ArrayAdapter';
 $classes[] = 'Symfony\Component\Serializer\Serializer';
+$classes[] = 'App\Serializer\PatchedDateTimeNormalizer';
 $classes[] = 'ApiPlatform\Core\Swagger\Serializer\ApiGatewayNormalizer';
 $classes[] = 'ApiPlatform\Core\Swagger\Serializer\DocumentationNormalizer';
 $classes[] = 'ApiPlatform\Core\Bridge\Symfony\Routing\RouterOperationPathResolver';

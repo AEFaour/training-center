@@ -7,6 +7,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\InvoiceRepository")
@@ -29,7 +30,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *       "pagination_items_per_page": 20,
  *       "order":{"sentAt":"desc"}
  *     },
- *     normalizationContext={"groups"= {"invoices_read"}}
+ *     normalizationContext={"groups"= {"invoices_read"}},
+ *     denormalizationContext={"disable_type_enforcement"=true}
  * )
  * @ApiFilter(OrderFilter::class, properties={"amount", "sentAt"})
  */
@@ -46,18 +48,24 @@ class Invoice
     /**
      * @ORM\Column(type="float")
      * @Groups({"invoices_read", "trainees_read", "invoices_subresource"})
+     * @Assert\NotBlank(message="Il est impératif d'intégrer le montant de la facture! ")
+     * @Assert\Type(type="numeric", message="Il est impératif que le montant de la facture soit numérique! " )
      */
     private $amount;
 
     /**
      * @ORM\Column(type="datetime")
      * @Groups({"invoices_read", "trainees_read", "invoices_subresource"})
+     * @Assert\NotBlank(message="Il est impératif d'intégrer la date de la facture ")
      */
     private $sentAt;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Groups({"invoices_read", "trainees_read", "invoices_subresource"})
+     * @Assert\NotBlank(message="Il est impératif de préciser le status de la facture! ")
+     * @Assert\Choice(choices={"SENT", "PAID", "CANCELLED"},
+     *     message="Il est impératif de choisir un status de la facture parmi les options suivants : SENT, PAID et CANCELLED! ")
      */
     private $status;
 
@@ -65,12 +73,15 @@ class Invoice
      * @ORM\ManyToOne(targetEntity="App\Entity\Trainee", inversedBy="invoices")
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"invoices_read"})
+     * @Assert\NotBlank(message="Il est impératif d'indiquer le stagiaire concerné par la facture ")
      */
     private $trainee;
 
     /**
      * @ORM\Column(type="integer")
      * @Groups({"invoices_read", "trainees_read", "invoices_subresource"})
+     * @Assert\NotBlank(message="Il est impératif d'intégrer le chrono de la facture ")
+     * @Assert\Type(type="integer", message="Il est impératif que le chrono de la facture soit un nombre! " )
      */
     private $chrono;
 
@@ -93,7 +104,7 @@ class Invoice
         return $this->amount;
     }
 
-    public function setAmount(float $amount): self
+    public function setAmount($amount): self
     {
         $this->amount = $amount;
 
@@ -105,7 +116,7 @@ class Invoice
         return $this->sentAt;
     }
 
-    public function setSentAt(\DateTimeInterface $sentAt): self
+    public function setSentAt($sentAt): self
     {
         $this->sentAt = $sentAt;
 
@@ -141,7 +152,7 @@ class Invoice
         return $this->chrono;
     }
 
-    public function setChrono(int $chrono): self
+    public function setChrono($chrono): self
     {
         $this->chrono = $chrono;
 

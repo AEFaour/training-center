@@ -18,7 +18,10 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
                 true,
             ],
             'required' => [
-                false,
+                true,
+            ],
+            'iri' => [
+                'http://schema.org/email',
             ],
             'identifier' => [
                 false,

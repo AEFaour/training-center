@@ -3,14 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Invoice;
-use Doctrine\Persistence\ObjectManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 class InvoiceIncrementationController extends AbstractController
 {
     /**
-     * @var ObjectManager
+     * @var EntityManagerInterface
      */
     private $manager;
 
@@ -18,7 +18,7 @@ class InvoiceIncrementationController extends AbstractController
      * InvoiceIncrementationController constructor.
      * @param $manager
      */
-    public function __construct(ObjectManager $manager)
+    public function __construct(EntityManagerInterface $manager)
     {
         $this->manager = $manager;
     }
