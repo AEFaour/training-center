@@ -12,6 +12,15 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
             'repositoryClass' => [
                 'App\\Repository\\UserRepository',
             ],
+            'attributes' => [
+                1 => [
+                    'normalization_context' => [
+                        'groups' => [
+                            'users_read',
+                        ],
+                    ],
+                ],
+            ],
             'message' => [
                 2 => 'Un autre user a déjà utilisé ce mail',
             ],

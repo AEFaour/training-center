@@ -13,7 +13,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @ApiResource()
+ * @ApiResource(
+ *     normalizationContext={"groups" = {"users_read"}}
+ * )
  * @UniqueEntity("email", message="Un autre user a déjà utilisé ce mail")
  */
 class User implements UserInterface
@@ -22,13 +24,13 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups({"trainees_read", "invoices_read", "invoices_subresource"})
+     * @Groups({"trainees_read", "invoices_read", "invoices_subresource", "users_read"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Groups({"trainees_read", "invoices_read", "invoices_subresource"})
+     * @Groups({"trainees_read", "invoices_read", "invoices_subresource", "users_read"})
      * @Assert\NotBlank(message="Il est impératif d'intégrer le mail élctronique ! ")
      * @Assert\Email(message="Il est impératif que la mail soit valid")
      */
@@ -48,7 +50,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"trainees_read", "invoices_read", "invoices_subresource"})
+     * @Groups({"trainees_read", "invoices_read", "invoices_subresource", "users_read"})
      * @Assert\NotBlank(message="Il est impératif d'intégrer le prénom ! ")
      * @Assert\Length(min=3, minMessage="Il est impératif que le prénom fasse entre 3 et 255 caractères",
      *     max=255, maxMessage="Il est impératif que le prénom fasse entre 3 et 255 caractères")
@@ -57,7 +59,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"trainees_read", "invoices_read", "invoices_subresource"})
+     * @Groups({"trainees_read", "invoices_read", "invoices_subresource", "users_read"})
      * @Assert\NotBlank(message="Il est impératif d'intégrer le nom ! ")
      * @Assert\Length(min=3, minMessage="Il est impératif que le nom fasse entre 3 et 255 caractères",
      *     max=255, maxMessage="Il est impératif que le nom fasse entre 3 et 255 caractères")
