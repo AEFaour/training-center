@@ -482,6 +482,28 @@
       <tag name="doctrine.fixture.orm"/>
       <argument type="service" id="security.user_password_encoder.generic"/>
     </service>
+    <service id="App\Doctrine\CurrentUserExtension" class="App\Doctrine\CurrentUserExtension" autowire="true" autoconfigure="true">
+      <tag name="api_platform.doctrine.orm.query_extension.collection"/>
+      <tag name="api_platform.doctrine.orm.query_extension.item"/>
+      <argument type="service" id="security.helper"/>
+      <argument type="service" id="security.authorization_checker"/>
+    </service>
+    <service id="App\Events\CustomerUserSubscriber" class="App\Events\CustomerUserSubscriber" autowire="true" autoconfigure="true">
+      <tag name="kernel.event_subscriber"/>
+      <argument type="service" id="security.helper"/>
+    </service>
+    <service id="App\Events\InvoiceChronoSubsciber" class="App\Events\InvoiceChronoSubsciber" autowire="true" autoconfigure="true">
+      <tag name="kernel.event_subscriber"/>
+      <argument type="service" id="security.helper"/>
+      <argument type="service" id="App\Repository\InvoiceRepository"/>
+    </service>
+    <service id="App\Events\JwtCreatedSubscriber" class="App\Events\JwtCreatedSubscriber" autowire="true" autoconfigure="true">
+      <tag name="kernel.event_listener" event="lexik_jwt_authentication.on_jwt_created" method="updateJwtData"/>
+    </service>
+    <service id="App\Events\PasswordEncoderSubscriber" class="App\Events\PasswordEncoderSubscriber" autowire="true" autoconfigure="true">
+      <tag name="kernel.event_subscriber"/>
+      <argument type="service" id="security.user_password_encoder.generic"/>
+    </service>
     <service id="App\Repository\InvoiceRepository" class="App\Repository\InvoiceRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
@@ -2388,6 +2410,14 @@
       <argument type="service" id="monolog.logger.event" on-invalid="null"/>
       <argument type="service" id="request_stack" on-invalid="null"/>
       <call method="addListener">
+        <argument>lexik_jwt_authentication.on_jwt_created</argument>
+        <argument type="collection">
+          <argument type="service" id="App\Events\JwtCreatedSubscriber"/>
+          <argument>updateJwtData</argument>
+        </argument>
+        <argument>0</argument>
+      </call>
+      <call method="addListener">
         <argument>kernel.controller</argument>
         <argument type="collection">
           <argument type="service" id="data_collector.router"/>
@@ -2530,6 +2560,30 @@
           <argument>onSecurityPostDenormalize</argument>
         </argument>
         <argument>1</argument>
+      </call>
+      <call method="addListener">
+        <argument>kernel.view</argument>
+        <argument type="collection">
+          <argument type="service" id="App\Events\CustomerUserSubscriber"/>
+          <argument>setUserForCustomer</argument>
+        </argument>
+        <argument>65</argument>
+      </call>
+      <call method="addListener">
+        <argument>kernel.view</argument>
+        <argument type="collection">
+          <argument type="service" id="App\Events\InvoiceChronoSubsciber"/>
+          <argument>setChronoForInvoice</argument>
+        </argument>
+        <argument>65</argument>
+      </call>
+      <call method="addListener">
+        <argument>kernel.view</argument>
+        <argument type="collection">
+          <argument type="service" id="App\Events\PasswordEncoderSubscriber"/>
+          <argument>encodePassword</argument>
+        </argument>
+        <argument>33</argument>
       </call>
       <call method="addListener">
         <argument>kernel.response</argument>
@@ -6144,6 +6198,15 @@
     <service id=".abstract.instanceof.App\Controller\InvoiceIncrementationController" class="App\Controller\InvoiceIncrementationController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\AppFixtures" class="App\DataFixtures\AppFixtures" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\DataFixtures\AppFixtures" class="App\DataFixtures\AppFixtures" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.ApiPlatform\Core\Bridge\Doctrine\Orm\Extension\QueryItemExtensionInterface.0.App\Doctrine\CurrentUserExtension" class="App\Doctrine\CurrentUserExtension" autowire="true" abstract="true"/>
+    <service id=".instanceof.ApiPlatform\Core\Bridge\Doctrine\Orm\Extension\QueryCollectionExtensionInterface.0.App\Doctrine\CurrentUserExtension" class="App\Doctrine\CurrentUserExtension" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Doctrine\CurrentUserExtension" class="App\Doctrine\CurrentUserExtension" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\EventDispatcher\EventSubscriberInterface.0.App\Events\CustomerUserSubscriber" class="App\Events\CustomerUserSubscriber" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Events\CustomerUserSubscriber" class="App\Events\CustomerUserSubscriber" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\EventDispatcher\EventSubscriberInterface.0.App\Events\InvoiceChronoSubsciber" class="App\Events\InvoiceChronoSubsciber" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Events\InvoiceChronoSubsciber" class="App\Events\InvoiceChronoSubsciber" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\EventDispatcher\EventSubscriberInterface.0.App\Events\PasswordEncoderSubscriber" class="App\Events\PasswordEncoderSubscriber" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Events\PasswordEncoderSubscriber" class="App\Events\PasswordEncoderSubscriber" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\InvoiceRepository" class="App\Repository\InvoiceRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\InvoiceRepository" class="App\Repository\InvoiceRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\TraineeRepository" class="App\Repository\TraineeRepository" autowire="true" abstract="true"/>
