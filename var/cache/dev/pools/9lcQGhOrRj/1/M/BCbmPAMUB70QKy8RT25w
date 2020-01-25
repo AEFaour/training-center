@@ -41,7 +41,7 @@ return [PHP_INT_MAX, static function () { return \Symfony\Component\VarExporter\
             ],
             'attributes' => [
                 1 => [
-                    'pagination_enabled' => true,
+                    'pagination_enabled' => false,
                     'pagination_items_per_page' => 20,
                     'order' => [
                         'sentAt' => 'desc',

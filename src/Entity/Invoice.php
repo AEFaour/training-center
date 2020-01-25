@@ -26,7 +26,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *             "description"="Increment the chrono of the invoice"
  *      }}},
  *  attributes={
- *       "pagination_enabled"=true,
+ *       "pagination_enabled"=false,
  *       "pagination_items_per_page": 20,
  *       "order":{"sentAt":"desc"}
  *     },
