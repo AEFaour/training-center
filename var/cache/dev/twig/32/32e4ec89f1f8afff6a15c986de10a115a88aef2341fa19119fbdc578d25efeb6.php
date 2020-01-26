@@ -250,9 +250,9 @@ class __TwigTemplate_e68e9fe9d53b71ae33eeb36257ee6b862d6fab7306e941fd4157a2fe2b9
             echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["loop"], "index0", [], "any", false, false, false, 57), "html", null, true);
             echo "\">";
             echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, (isset($context["caller"]) || array_key_exists("caller", $context) ? $context["caller"] : (function () { throw new RuntimeError('Variable "caller" does not exist.', 57, $this->source); })()), "line", [], "any", false, false, false, 57), "html", null, true);
-            echo "</a> (<a class=\"text-small sf-toggle\" data-toggle-selector=\"#sf-context-";
+            echo "</a> (<a class=\"text-small sf-toggle\" data-toggle-selector=\"#sf-contexts-";
             echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["loop"], "index0", [], "any", false, false, false, 57), "html", null, true);
-            echo "\">context</a>):
+            echo "\">contexts</a>):
             </span>
 
             <div class=\"sf-validator-compact hidden\" id=\"sf-trace-";
@@ -268,13 +268,13 @@ class __TwigTemplate_e68e9fe9d53b71ae33eeb36257ee6b862d6fab7306e941fd4157a2fe2b9
                 </div>
             </div>
 
-            <div class=\"sf-validator-compact hidden sf-validator-context\" id=\"sf-context-";
+            <div class=\"sf-validator-compact hidden sf-validator-contexts\" id=\"sf-contexts-";
             // line 71
             echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["loop"], "index0", [], "any", false, false, false, 71), "html", null, true);
             echo "\">
                 ";
             // line 72
-            echo $this->extensions['Symfony\Bundle\WebProfilerBundle\Twig\WebProfilerExtension']->dumpData($this->env, twig_get_attribute($this->env, $this->source, $context["call"], "context", [], "any", false, false, false, 72), 1);
+            echo $this->extensions['Symfony\Bundle\WebProfilerBundle\Twig\WebProfilerExtension']->dumpData($this->env, twig_get_attribute($this->env, $this->source, $context["call"], "contexts", [], "any", false, false, false, 72), 1);
             echo "
             </div>
 
@@ -432,7 +432,7 @@ class __TwigTemplate_e68e9fe9d53b71ae33eeb36257ee6b862d6fab7306e941fd4157a2fe2b9
                 {% else %}
                     {{ caller.name }}
                 {% endif %}
-                line <a class=\"text-small sf-toggle\" data-toggle-selector=\"#sf-trace-{{ loop.index0 }}\">{{ caller.line }}</a> (<a class=\"text-small sf-toggle\" data-toggle-selector=\"#sf-context-{{ loop.index0 }}\">context</a>):
+                line <a class=\"text-small sf-toggle\" data-toggle-selector=\"#sf-trace-{{ loop.index0 }}\">{{ caller.line }}</a> (<a class=\"text-small sf-toggle\" data-toggle-selector=\"#sf-contexts-{{ loop.index0 }}\">contexts</a>):
             </span>
 
             <div class=\"sf-validator-compact hidden\" id=\"sf-trace-{{ loop.index0 }}\">
@@ -446,8 +446,8 @@ class __TwigTemplate_e68e9fe9d53b71ae33eeb36257ee6b862d6fab7306e941fd4157a2fe2b9
                 </div>
             </div>
 
-            <div class=\"sf-validator-compact hidden sf-validator-context\" id=\"sf-context-{{ loop.index0 }}\">
-                {{ profiler_dump(call.context, maxDepth=1) }}
+            <div class=\"sf-validator-compact hidden sf-validator-contexts\" id=\"sf-contexts-{{ loop.index0 }}\">
+                {{ profiler_dump(call.contexts, maxDepth=1) }}
             </div>
 
             {% if call.violations|length %}

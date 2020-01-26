@@ -45,7 +45,7 @@ class App_KernelDevDebugContainer extends Container
             'api_platform.action.exception' => 'getApiPlatform_Action_ExceptionService',
             'api_platform.action.not_found' => 'getApiPlatform_Action_NotFoundService',
             'api_platform.action.placeholder' => 'getApiPlatform_Action_PlaceholderService',
-            'api_platform.jsonld.action.context' => 'getApiPlatform_Jsonld_Action_ContextService',
+            'api_platform.jsonld.action.contexts' => 'getApiPlatform_Jsonld_Action_ContextService',
             'api_platform.swagger.action.ui' => 'getApiPlatform_Swagger_Action_UiService',
             'cache.app' => 'getCache_AppService',
             'cache.app_clearer' => 'getCache_AppClearerService',
@@ -689,7 +689,7 @@ class App_KernelDevDebugContainer extends Container
     }
 
     /**
-     * Gets the public 'api_platform.jsonld.action.context' shared service.
+     * Gets the public 'api_platform.jsonld.action.contexts' shared service.
      *
      * @return \ApiPlatform\Core\JsonLd\Action\ContextAction
      */
@@ -697,7 +697,7 @@ class App_KernelDevDebugContainer extends Container
     {
         include_once \dirname(__DIR__, 4).'\\vendor\\api-platform\\core\\src\\JsonLd\\Action\\ContextAction.php';
 
-        return $this->services['api_platform.jsonld.action.context'] = new \ApiPlatform\Core\JsonLd\Action\ContextAction(($this->privates['api_platform.jsonld.context_builder'] ?? $this->getApiPlatform_Jsonld_ContextBuilderService()), ($this->privates['api_platform.metadata.resource.name_collection_factory.cached'] ?? $this->getApiPlatform_Metadata_Resource_NameCollectionFactory_CachedService()), ($this->privates['api_platform.metadata.resource.metadata_factory.cached'] ?? $this->getApiPlatform_Metadata_Resource_MetadataFactory_CachedService()));
+        return $this->services['api_platform.jsonld.action.contexts'] = new \ApiPlatform\Core\JsonLd\Action\ContextAction(($this->privates['api_platform.jsonld.context_builder'] ?? $this->getApiPlatform_Jsonld_ContextBuilderService()), ($this->privates['api_platform.metadata.resource.name_collection_factory.cached'] ?? $this->getApiPlatform_Metadata_Resource_NameCollectionFactory_CachedService()), ($this->privates['api_platform.metadata.resource.metadata_factory.cached'] ?? $this->getApiPlatform_Metadata_Resource_MetadataFactory_CachedService()));
     }
 
     /**
@@ -5319,19 +5319,19 @@ class App_KernelDevDebugContainer extends Container
     protected function getSecurity_Firewall_MapService()
     {
         return $this->privates['security.firewall.map'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallMap(new \Symfony\Component\DependencyInjection\Argument\ServiceLocator($this->getService, [
-            'security.firewall.map.context.dev' => ['privates', 'security.firewall.map.context.dev', 'getSecurity_Firewall_Map_Context_DevService', false],
-            'security.firewall.map.context.main' => ['privates', 'security.firewall.map.context.main', 'getSecurity_Firewall_Map_Context_MainService', false],
+            'security.firewall.map.contexts.dev' => ['privates', 'security.firewall.map.contexts.dev', 'getSecurity_Firewall_Map_Context_DevService', false],
+            'security.firewall.map.contexts.main' => ['privates', 'security.firewall.map.contexts.main', 'getSecurity_Firewall_Map_Context_MainService', false],
         ], [
-            'security.firewall.map.context.dev' => '?',
-            'security.firewall.map.context.main' => '?',
+            'security.firewall.map.contexts.dev' => '?',
+            'security.firewall.map.contexts.main' => '?',
         ]), new RewindableGenerator(function () {
-            yield 'security.firewall.map.context.dev' => ($this->privates['.security.request_matcher.Iy.T22O'] ?? ($this->privates['.security.request_matcher.Iy.T22O'] = new \Symfony\Component\HttpFoundation\RequestMatcher('^/(_(profiler|wdt)|css|images|js)/')));
-            yield 'security.firewall.map.context.main' => NULL;
+            yield 'security.firewall.map.contexts.dev' => ($this->privates['.security.request_matcher.Iy.T22O'] ?? ($this->privates['.security.request_matcher.Iy.T22O'] = new \Symfony\Component\HttpFoundation\RequestMatcher('^/(_(profiler|wdt)|css|images|js)/')));
+            yield 'security.firewall.map.contexts.main' => NULL;
         }, 2));
     }
 
     /**
-     * Gets the private 'security.firewall.map.context.dev' shared service.
+     * Gets the private 'security.firewall.map.contexts.dev' shared service.
      *
      * @return \Symfony\Bundle\SecurityBundle\Security\FirewallContext
      */
@@ -5340,13 +5340,13 @@ class App_KernelDevDebugContainer extends Container
         include_once \dirname(__DIR__, 4).'\\vendor\\symfony\\security-bundle\\Security\\FirewallContext.php';
         include_once \dirname(__DIR__, 4).'\\vendor\\symfony\\security-bundle\\Security\\FirewallConfig.php';
 
-        return $this->privates['security.firewall.map.context.dev'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(new RewindableGenerator(function () {
+        return $this->privates['security.firewall.map.contexts.dev'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(new RewindableGenerator(function () {
             return new \EmptyIterator();
         }, 0), NULL, NULL, new \Symfony\Bundle\SecurityBundle\Security\FirewallConfig('dev', 'security.user_checker', '.security.request_matcher.Iy.T22O', false, false, '', '', '', '', '', [], NULL));
     }
 
     /**
-     * Gets the private 'security.firewall.map.context.main' shared service.
+     * Gets the private 'security.firewall.map.contexts.main' shared service.
      *
      * @return \Symfony\Bundle\SecurityBundle\Security\LazyFirewallContext
      */
@@ -5361,7 +5361,7 @@ class App_KernelDevDebugContainer extends Container
 
         $a = ($this->services['router'] ?? $this->getRouterService());
 
-        return $this->privates['security.firewall.map.context.main'] = new \Symfony\Bundle\SecurityBundle\Security\LazyFirewallContext(new RewindableGenerator(function () {
+        return $this->privates['security.firewall.map.contexts.main'] = new \Symfony\Bundle\SecurityBundle\Security\LazyFirewallContext(new RewindableGenerator(function () {
             yield 0 => ($this->privates['security.channel_listener'] ?? $this->getSecurity_ChannelListenerService());
             yield 1 => ($this->privates['security.context_listener.0'] ?? $this->getSecurity_ContextListener_0Service());
             yield 2 => ($this->privates['security.authentication.listener.anonymous.main'] ?? $this->getSecurity_Authentication_Listener_Anonymous_MainService());

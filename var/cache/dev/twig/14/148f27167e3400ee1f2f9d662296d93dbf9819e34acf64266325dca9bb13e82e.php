@@ -587,14 +587,14 @@ $context["answer"] === false)) {
                 echo "            </tbody>
             ";
                 // line 65
-                if (twig_get_attribute($this->env, $this->source, ($context["object"] ?? null), "context", [], "any", true, true, false, 65)) {
+                if (twig_get_attribute($this->env, $this->source, ($context["object"] ?? null), "contexts", [], "any", true, true, false, 65)) {
                     // line 66
                     echo "                <tfoot>
                     <tr>
                         <td class=\"font-normal\" colspan=\"2\"></td>
                         <td class=\"font-normal\">Context";
                     // line 69
-                    echo $this->extensions['Symfony\Bundle\WebProfilerBundle\Twig\WebProfilerExtension']->dumpData($this->env, twig_get_attribute($this->env, $this->source, (isset($context["object"]) || array_key_exists("object", $context) ? $context["object"] : (function () { throw new RuntimeError('Variable "object" does not exist.', 69, $this->source); })()), "context", [], "any", false, false, false, 69), 2);
+                    echo $this->extensions['Symfony\Bundle\WebProfilerBundle\Twig\WebProfilerExtension']->dumpData($this->env, twig_get_attribute($this->env, $this->source, (isset($context["object"]) || array_key_exists("object", $context) ? $context["object"] : (function () { throw new RuntimeError('Variable "object" does not exist.', 69, $this->source); })()), "contexts", [], "any", false, false, false, 69), 2);
                     echo "</td>
                     </tr>
                 </tfoot>
@@ -698,11 +698,11 @@ $context["answer"] === false)) {
                 </tr>
             {% endfor %}
             </tbody>
-            {% if object.context is defined %}
+            {% if object.contexts is defined %}
                 <tfoot>
                     <tr>
                         <td class=\"font-normal\" colspan=\"2\"></td>
-                        <td class=\"font-normal\">Context{{ profiler_dump(object.context, 2) }}</td>
+                        <td class=\"font-normal\">Context{{ profiler_dump(object.contexts, 2) }}</td>
                     </tr>
                 </tfoot>
             {% endif %}

@@ -452,7 +452,7 @@ class __TwigTemplate_7e0f25e5d8f88ee04f9b6d869090153d5e4d8df34cb85039e3ef3fbdc00
                                         <td class=\"font-normal\">
                                             ";
                     // line 161
-                    $context["context_id"] = ("context-compiler-" . twig_get_attribute($this->env, $this->source, $context["loop"], "index", [], "any", false, false, false, 161));
+                    $context["context_id"] = ("contexts-compiler-" . twig_get_attribute($this->env, $this->source, $context["loop"], "index", [], "any", false, false, false, 161));
                     // line 162
                     echo "
                                              <a class=\"btn btn-link sf-toggle\" data-toggle-selector=\"#";
@@ -467,7 +467,7 @@ class __TwigTemplate_7e0f25e5d8f88ee04f9b6d869090153d5e4d8df34cb85039e3ef3fbdc00
                                              <div id=\"";
                     // line 165
                     echo twig_escape_filter($this->env, (isset($context["context_id"]) || array_key_exists("context_id", $context) ? $context["context_id"] : (function () { throw new RuntimeError('Variable "context_id" does not exist.', 165, $this->source); })()), "html", null, true);
-                    echo "\" class=\"context sf-toggle-content sf-toggle-hidden\">
+                    echo "\" class=\"contexts sf-toggle-content sf-toggle-hidden\">
                                                 <ul>
                                                 ";
                     // line 167
@@ -733,10 +733,10 @@ $context["log"], "priorityName", [], "any", false, false, false, 206), "WARNING"
 
             // line 234
             echo "    ";
-            $context["has_context"] = (twig_get_attribute($this->env, $this->source, ($context["log"] ?? null), "context", [], "any", true, true, false, 234) &&  !twig_test_empty(twig_get_attribute($this->env, $this->source, (isset($context["log"]) || array_key_exists("log", $context) ? $context["log"] : (function () { throw new RuntimeError('Variable "log" does not exist.', 234, $this->source); })()), "context", [], "any", false, false, false, 234)));
+            $context["has_context"] = (twig_get_attribute($this->env, $this->source, ($context["log"] ?? null), "contexts", [], "any", true, true, false, 234) &&  !twig_test_empty(twig_get_attribute($this->env, $this->source, (isset($context["log"]) || array_key_exists("log", $context) ? $context["log"] : (function () { throw new RuntimeError('Variable "log" does not exist.', 234, $this->source); })()), "contexts", [], "any", false, false, false, 234)));
             // line 235
             echo "    ";
-            $context["has_trace"] = twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, ($context["log"] ?? null), "context", [], "any", false, true, false, 235), "exception", [], "any", false, true, false, 235), "trace", [], "any", true, true, false, 235);
+            $context["has_trace"] = twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, ($context["log"] ?? null), "contexts", [], "any", false, true, false, 235), "exception", [], "any", false, true, false, 235), "trace", [], "any", true, true, false, 235);
             // line 236
             echo "
     ";
@@ -750,17 +750,17 @@ $context["log"], "priorityName", [], "any", false, false, false, 206), "WARNING"
             } else {
                 // line 240
                 echo "        ";
-                echo $this->extensions['Symfony\Bundle\WebProfilerBundle\Twig\WebProfilerExtension']->dumpLog($this->env, twig_get_attribute($this->env, $this->source, (isset($context["log"]) || array_key_exists("log", $context) ? $context["log"] : (function () { throw new RuntimeError('Variable "log" does not exist.', 240, $this->source); })()), "message", [], "any", false, false, false, 240), twig_get_attribute($this->env, $this->source, (isset($context["log"]) || array_key_exists("log", $context) ? $context["log"] : (function () { throw new RuntimeError('Variable "log" does not exist.', 240, $this->source); })()), "context", [], "any", false, false, false, 240));
+                echo $this->extensions['Symfony\Bundle\WebProfilerBundle\Twig\WebProfilerExtension']->dumpLog($this->env, twig_get_attribute($this->env, $this->source, (isset($context["log"]) || array_key_exists("log", $context) ? $context["log"] : (function () { throw new RuntimeError('Variable "log" does not exist.', 240, $this->source); })()), "message", [], "any", false, false, false, 240), twig_get_attribute($this->env, $this->source, (isset($context["log"]) || array_key_exists("log", $context) ? $context["log"] : (function () { throw new RuntimeError('Variable "log" does not exist.', 240, $this->source); })()), "contexts", [], "any", false, false, false, 240));
                 echo "
 
         <div class=\"text-small font-normal\">
             ";
                 // line 243
-                $context["context_id"] = ((("context-" . (isset($context["category"]) || array_key_exists("category", $context) ? $context["category"] : (function () { throw new RuntimeError('Variable "category" does not exist.', 243, $this->source); })())) . "-") . (isset($context["log_index"]) || array_key_exists("log_index", $context) ? $context["log_index"] : (function () { throw new RuntimeError('Variable "log_index" does not exist.', 243, $this->source); })()));
+                $context["context_id"] = ((("contexts-" . (isset($context["category"]) || array_key_exists("category", $context) ? $context["category"] : (function () { throw new RuntimeError('Variable "category" does not exist.', 243, $this->source); })())) . "-") . (isset($context["log_index"]) || array_key_exists("log_index", $context) ? $context["log_index"] : (function () { throw new RuntimeError('Variable "log_index" does not exist.', 243, $this->source); })()));
                 // line 244
                 echo "            <a class=\"btn btn-link text-small sf-toggle\" data-toggle-selector=\"#";
                 echo twig_escape_filter($this->env, (isset($context["context_id"]) || array_key_exists("context_id", $context) ? $context["context_id"] : (function () { throw new RuntimeError('Variable "context_id" does not exist.', 244, $this->source); })()), "html", null, true);
-                echo "\" data-toggle-alt-content=\"Hide context\">Show context</a>
+                echo "\" data-toggle-alt-content=\"Hide contexts\">Show contexts</a>
 
             ";
                 // line 246
@@ -782,10 +782,10 @@ $context["log"], "priorityName", [], "any", false, false, false, 206), "WARNING"
         <div id=\"";
                 // line 253
                 echo twig_escape_filter($this->env, (isset($context["context_id"]) || array_key_exists("context_id", $context) ? $context["context_id"] : (function () { throw new RuntimeError('Variable "context_id" does not exist.', 253, $this->source); })()), "html", null, true);
-                echo "\" class=\"context sf-toggle-content sf-toggle-hidden\">
+                echo "\" class=\"contexts sf-toggle-content sf-toggle-hidden\">
             ";
                 // line 254
-                echo $this->extensions['Symfony\Bundle\WebProfilerBundle\Twig\WebProfilerExtension']->dumpData($this->env, twig_get_attribute($this->env, $this->source, (isset($context["log"]) || array_key_exists("log", $context) ? $context["log"] : (function () { throw new RuntimeError('Variable "log" does not exist.', 254, $this->source); })()), "context", [], "any", false, false, false, 254), 1);
+                echo $this->extensions['Symfony\Bundle\WebProfilerBundle\Twig\WebProfilerExtension']->dumpData($this->env, twig_get_attribute($this->env, $this->source, (isset($context["log"]) || array_key_exists("log", $context) ? $context["log"] : (function () { throw new RuntimeError('Variable "log" does not exist.', 254, $this->source); })()), "contexts", [], "any", false, false, false, 254), 1);
                 echo "
         </div>
 
@@ -795,10 +795,10 @@ $context["log"], "priorityName", [], "any", false, false, false, 206), "WARNING"
                     // line 258
                     echo "            <div id=\"";
                     echo twig_escape_filter($this->env, (isset($context["trace_id"]) || array_key_exists("trace_id", $context) ? $context["trace_id"] : (function () { throw new RuntimeError('Variable "trace_id" does not exist.', 258, $this->source); })()), "html", null, true);
-                    echo "\" class=\"context sf-toggle-content sf-toggle-hidden\">
+                    echo "\" class=\"contexts sf-toggle-content sf-toggle-hidden\">
                 ";
                     // line 259
-                    echo $this->extensions['Symfony\Bundle\WebProfilerBundle\Twig\WebProfilerExtension']->dumpData($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["log"]) || array_key_exists("log", $context) ? $context["log"] : (function () { throw new RuntimeError('Variable "log" does not exist.', 259, $this->source); })()), "context", [], "any", false, false, false, 259), "exception", [], "any", false, false, false, 259), "trace", [], "any", false, false, false, 259), 1);
+                    echo $this->extensions['Symfony\Bundle\WebProfilerBundle\Twig\WebProfilerExtension']->dumpData($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["log"]) || array_key_exists("log", $context) ? $context["log"] : (function () { throw new RuntimeError('Variable "log" does not exist.', 259, $this->source); })()), "contexts", [], "any", false, false, false, 259), "exception", [], "any", false, false, false, 259), "trace", [], "any", false, false, false, 259), 1);
                     echo "
             </div>
         ";
@@ -996,11 +996,11 @@ $context["log"], "priorityName", [], "any", false, false, false, 206), "WARNING"
                                 {% for class, logs in collector.compilerLogs %}
                                     <tr class=\"\">
                                         <td class=\"font-normal\">
-                                            {% set context_id = 'context-compiler-' ~ loop.index %}
+                                            {% set context_id = 'contexts-compiler-' ~ loop.index %}
 
                                              <a class=\"btn btn-link sf-toggle\" data-toggle-selector=\"#{{ context_id }}\" data-toggle-alt-content=\"{{ class }}\">{{ class }}</a>
 
-                                             <div id=\"{{ context_id }}\" class=\"context sf-toggle-content sf-toggle-hidden\">
+                                             <div id=\"{{ context_id }}\" class=\"contexts sf-toggle-content sf-toggle-hidden\">
                                                 <ul>
                                                 {% for log in logs %}
                                                     <li>{{ profiler_dump_log(log.message) }}</li>
@@ -1069,17 +1069,17 @@ $context["log"], "priorityName", [], "any", false, false, false, 206), "WARNING"
 {% endmacro %}
 
 {% macro render_log_message(category, log_index, log) %}
-    {% set has_context = log.context is defined and log.context is not empty %}
-    {% set has_trace = log.context.exception.trace is defined %}
+    {% set has_context = log.contexts is defined and log.contexts is not empty %}
+    {% set has_trace = log.contexts.exception.trace is defined %}
 
     {% if not has_context %}
         {{ profiler_dump_log(log.message) }}
     {% else %}
-        {{ profiler_dump_log(log.message, log.context) }}
+        {{ profiler_dump_log(log.message, log.contexts) }}
 
         <div class=\"text-small font-normal\">
-            {% set context_id = 'context-' ~ category ~ '-' ~ log_index %}
-            <a class=\"btn btn-link text-small sf-toggle\" data-toggle-selector=\"#{{ context_id }}\" data-toggle-alt-content=\"Hide context\">Show context</a>
+            {% set context_id = 'contexts-' ~ category ~ '-' ~ log_index %}
+            <a class=\"btn btn-link text-small sf-toggle\" data-toggle-selector=\"#{{ context_id }}\" data-toggle-alt-content=\"Hide contexts\">Show contexts</a>
 
             {% if has_trace %}
                 &nbsp;&nbsp;
@@ -1088,13 +1088,13 @@ $context["log"], "priorityName", [], "any", false, false, false, 206), "WARNING"
             {% endif %}
         </div>
 
-        <div id=\"{{ context_id }}\" class=\"context sf-toggle-content sf-toggle-hidden\">
-            {{ profiler_dump(log.context, maxDepth=1) }}
+        <div id=\"{{ context_id }}\" class=\"contexts sf-toggle-content sf-toggle-hidden\">
+            {{ profiler_dump(log.contexts, maxDepth=1) }}
         </div>
 
         {% if has_trace %}
-            <div id=\"{{ trace_id }}\" class=\"context sf-toggle-content sf-toggle-hidden\">
-                {{ profiler_dump(log.context.exception.trace, maxDepth=1) }}
+            <div id=\"{{ trace_id }}\" class=\"contexts sf-toggle-content sf-toggle-hidden\">
+                {{ profiler_dump(log.contexts.exception.trace, maxDepth=1) }}
             </div>
         {% endif %}
     {% endif %}

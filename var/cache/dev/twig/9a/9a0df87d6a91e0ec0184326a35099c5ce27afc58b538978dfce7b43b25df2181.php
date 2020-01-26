@@ -449,10 +449,10 @@ class __TwigTemplate_23041d24de2536e43e87c3cbf693625913b4585a3ba2c1e6d70a4541096
                     echo "</td>
                         </tr>
                         <tr>
-                            <th>context</th>
+                            <th>contexts</th>
                             <td>";
                     // line 185
-                    ((twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["collector"]) || array_key_exists("collector", $context) ? $context["collector"] : (function () { throw new RuntimeError('Variable "collector" does not exist.', 185, $this->source); })()), "firewall", [], "any", false, false, false, 185), "context", [], "any", false, false, false, 185)) ? (print (twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["collector"]) || array_key_exists("collector", $context) ? $context["collector"] : (function () { throw new RuntimeError('Variable "collector" does not exist.', 185, $this->source); })()), "firewall", [], "any", false, false, false, 185), "context", [], "any", false, false, false, 185), "html", null, true))) : (print ("(none)")));
+                    ((twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["collector"]) || array_key_exists("collector", $context) ? $context["collector"] : (function () { throw new RuntimeError('Variable "collector" does not exist.', 185, $this->source); })()), "firewall", [], "any", false, false, false, 185), "contexts", [], "any", false, false, false, 185)) ? (print (twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["collector"]) || array_key_exists("collector", $context) ? $context["collector"] : (function () { throw new RuntimeError('Variable "collector" does not exist.', 185, $this->source); })()), "firewall", [], "any", false, false, false, 185), "contexts", [], "any", false, false, false, 185), "html", null, true))) : (print ("(none)")));
                     echo "</td>
                         </tr>
                         <tr>
@@ -1100,8 +1100,8 @@ $context["voter_detail"], "vote", [], "array", false, false, false, 353), twig_c
                             <td>{{ collector.firewall.provider ?: '(none)' }}</td>
                         </tr>
                         <tr>
-                            <th>context</th>
-                            <td>{{ collector.firewall.context ?: '(none)' }}</td>
+                            <th>contexts</th>
+                            <td>{{ collector.firewall.contexts ?: '(none)' }}</td>
                         </tr>
                         <tr>
                             <th>entry_point</th>

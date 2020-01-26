@@ -1113,7 +1113,7 @@ tr.status-warning td {
     margin-bottom: 2em;
 }
 
-#collector-content .sf-validator .sf-validator-context,
+#collector-content .sf-validator .sf-validator-contexts,
 #collector-content .sf-validator .trace {
     border: var(--border);
     background: var(--base-0);
@@ -2406,7 +2406,7 @@ table.logs .metadata {
     margin-bottom: 2em;
 }
 
-#collector-content .sf-validator .sf-validator-context,
+#collector-content .sf-validator .sf-validator-contexts,
 #collector-content .sf-validator .trace {
     border: var(--border);
     background: var(--base-0);
