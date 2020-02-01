@@ -2,12 +2,14 @@ import React, {useContext} from 'react';
 import authAPI from "../services/authAPI";
 import {NavLink} from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
+import {toast} from "react-toastify";
 
 const Navbar = ({history}) => {
     const {isAuthenticated, setIsAuthenticated} = useContext(AuthContext);
     const handleLogout =() => {
         authAPI.logout();
         setIsAuthenticated(false);
+        toast.info("Vous êtes déconnecté dès maintenant");
         history.push("/login");
     }
     return (<nav className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -30,7 +32,7 @@ const Navbar = ({history}) => {
                 {(!isAuthenticated && (
                     <>
                         <li className="nav-item">
-                            <NavLink to="/registre" className="nav-link">Inscription</NavLink>
+                            <NavLink to="/register" className="nav-link">Inscription</NavLink>
                         </li>
                         <li className="nav-item">
                             <NavLink to="/login" className="nav-link btn btn-danger">Connexion ! </NavLink>

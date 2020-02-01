@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import Pagination from "../components/Pagination";
 import TraineeAPI from "../services/traineesAPI";
 import {Link} from "react-router-dom";
+import {toast} from "react-toastify";
+import TableLoader from "../components/loaders/TableLoader";
 
 
 const TraineesPage = props => {
@@ -9,16 +11,20 @@ const TraineesPage = props => {
     const [trainees, setTrainees] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [search, setSearch] = useState('');
+    const [loading, setLoading] = useState(true);
 
     const fetchTrainees = async () => {
         try {
             const data = await TraineeAPI.findAll();
             setTrainees(data);
+            setLoading(false);
         } catch (error) {
-            console.log(error.response);
+            toast.error("impossible de charger les stagiaires");
         }
     }
-    useEffect( () => {fetchTrainees()}, []);
+    useEffect(() => {
+        fetchTrainees()
+    }, []);
 
     const handleDelete = async id => {
         const originalTrainees = [...trainees];
@@ -26,9 +32,11 @@ const TraineesPage = props => {
         setTrainees(trainees.filter(trainee => trainee.id !== id))
 
         try {
-            await TraineeAPI.delete(id)
+            await TraineeAPI.delete(id);
+            toast.success("Le stagiaire est bien supprimé");
         } catch (error) {
             setTrainees(originalTrainees);
+            toast.error("impossible de supprimer le stagiaire");
             console.log(error.response)
         }
     };
@@ -80,12 +88,12 @@ const TraineesPage = props => {
                     <th/>
                 </tr>
                 </thead>
-                <tbody>
+                {!loading && <tbody>
                 {paginatedTrainees.map(trainee =>
-                    <tr key={trainee.id}>
+                    (<tr key={trainee.id}>
                         <td>{trainee.id}</td>
                         <td>
-                            <a href="#">{trainee.firstName} {trainee.lastName}</a>
+                            <Link to={"/trainees/" + trainee.id}>{trainee.firstName} {trainee.lastName}</Link>
                         </td>
                         <td>{trainee.email}</td>
                         <td>{trainee.company}</td>
@@ -102,9 +110,12 @@ const TraineesPage = props => {
                                 Supprimer
                             </button>
                         </td>
-                    </tr>)}
-                </tbody>
+                    </tr>))}
+                </tbody>}
             </table>
+
+            {loading && <TableLoader/>}
+
             {itemsPerPage < filteredTrainees.length && <Pagination
                 currentPage={currentPage}
                 itemsPerPage={itemsPerPage}

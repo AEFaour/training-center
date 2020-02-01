@@ -4,6 +4,7 @@ import Field from "../components/forms/Field";
 import usersAPI from "../services/usersAPI";
 import {Button, FormControl, Grid, Typography} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
+import {toast} from "react-toastify";
 
 
 const useStyles = makeStyles(theme => ({
@@ -57,6 +58,7 @@ const RegisterPage = ({ history }) => {
             await usersAPI.register(user);
             seErrors({});
             history.replace("/login");
+            toast.success("Félicitation, vous êtes bien inscrire, vous pouvez vous connecter");
         } catch (error) {
             const {violations} = error.response.data;
             if(violations){
@@ -65,7 +67,8 @@ const RegisterPage = ({ history }) => {
                     apiErrors[violation.propertyPath] = violation.message;
                 });
                 seErrors(apiErrors);
-            }
+            };
+            toast.error("il y a une erreur dans votre formulaire!");
         }
 
     };

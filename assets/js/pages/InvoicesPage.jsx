@@ -14,17 +14,19 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import {Card, Fab} from '@material-ui/core';
 import {Typography} from '@material-ui/core';
-import { FormControl } from '@material-ui/core';
-import { Input } from '@material-ui/core';
-import { InputLabel } from '@material-ui/core';
+import {FormControl} from '@material-ui/core';
+import {Input} from '@material-ui/core';
+import {InputLabel} from '@material-ui/core';
 import CardContent from "@material-ui/core/CardContent";
+import {toast} from "react-toastify";
+import TableLoader from "../components/loaders/TableLoader";
 
 
 const STATUS_LABELS = {
 
-    PAID : 'Payée',
-    SENT : 'Envoyée',
-    CANCELLED : 'Annulée',
+    PAID: 'Payée',
+    SENT: 'Envoyée',
+    CANCELLED: 'Annulée',
 }
 
 const StyledTableCell = withStyles(theme => ({
@@ -76,13 +78,16 @@ const InvoicesPage = (props) => {
     const [invoices, setInvoices] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [search, setSearch] = useState('');
+    const [loading, setLoading] = useState(true);
 
     const fetchInvoices = async () => {
         try {
             const data = await invoicesAPI.findAll();
             setInvoices(data);
+            setLoading(false);
         } catch (error) {
             console.log(error.response);
+            toast.error("erreur : chargement de facture");
         }
     };
 
@@ -93,14 +98,14 @@ const InvoicesPage = (props) => {
 
     const handleDelete = async id => {
         const orginalInvoices = [...invoices];
-
+        toast.success("La facture est supprimée");
         setInvoices(invoices.filter(invoice => invoice.id !== id))
         try {
             await invoicesAPI.delete(id);
-            
+
         } catch (error) {
-            console.log(error.response);
             setInvoices(orginalInvoices);
+            toast.error("Il y a une error");
         }
     }
 
@@ -135,20 +140,17 @@ const InvoicesPage = (props) => {
                 <div className={classes.details}>
                     <CardContent className={classes.content}>
                         <Link to="/invoices/new">
-                            <Button className={classes.root} variant="contained" color="secondary" >
+                            <Button className={classes.root} variant="contained" color="secondary">
                                 Créer une Facture
                             </Button>
-
                         </Link>
                     </CardContent>
                 </div>
-
             </Card>
-
             <FormControl>
                 <InputLabel htmlFor="my-input">Rechercher</InputLabel>
                 <Input id="my-input" aria-describedby="my-helper-text" onChange={handleSearch}
-                       value={search} />
+                       value={search}/>
             </FormControl>
             <TableContainer component={Paper}>
                 <Table className={classes.table} aria-label="customized table">
@@ -164,13 +166,18 @@ const InvoicesPage = (props) => {
                             <StyledTableCell align="right">Actions</StyledTableCell>
                         </TableRow>
                     </TableHead>
-                    <TableBody>
+                    {!loading && <TableBody>
                         {paginatedInvoices.map(invoice => (
                             <StyledTableRow key={invoice.id}>
                                 <StyledTableCell component="th">
                                     {invoice.chrono}
                                 </StyledTableCell>
-                                <StyledTableCell align="right">{invoice.trainee.firstName} {invoice.trainee.lastName}</StyledTableCell>
+                                <StyledTableCell
+                                    align="right">
+                                    <Link to={"/trainees/" + invoice.trainee.id}>
+                                        {invoice.trainee.firstName} {invoice.trainee.lastName}
+                                    </Link>
+                                </StyledTableCell>
                                 <StyledTableCell align="right">{formatDate(invoice.sentAt)}</StyledTableCell>
                                 <StyledTableCell align="right">
                                     <Fab color="primary" variant="extended">
@@ -184,14 +191,17 @@ const InvoicesPage = (props) => {
                                             Editer
                                         </Button>
                                     </Link>
-                                    <Button className={classes.root} variant="contained" color="secondary" onClick={() => handleDelete(invoice.id)}>
+                                    <Button className={classes.root} variant="contained" color="secondary"
+                                            onClick={() => handleDelete(invoice.id)}>
                                         Supprimer
                                     </Button>
                                 </StyledTableCell>
                             </StyledTableRow>
                         ))}
-                    </TableBody>
+                    </TableBody>}
                 </Table>
+
+                {loading && <TableLoader/>}
             </TableContainer>
             <Pagination
                 currentPage={currentPage}

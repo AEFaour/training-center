@@ -4,6 +4,8 @@ import traineesAPI from "../services/traineesAPI";
 import Field from "../components/forms/Field";
 import {Button, FormControl, Grid, Typography} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
+import {toast} from "react-toastify";
+import FormLoader from "../components/loaders/FormLoader";
 
 
 const useStyles = makeStyles(theme => ({
@@ -44,13 +46,16 @@ const TraineePage = ({match, history}) => {
     });
 
     const [editing, setEditing] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const fetchTrainee = async id => {
         try {
             const {firstName, lastName, email, company} = await traineesAPI.findOne(id);
 
             setTrainee({firstName, lastName, email, company});
+            setLoading(false);
         } catch (error) {
+            toast.error("impossible de charger le stagiaire");
             console.log(error.response);
             history.replace("/trainees");
         }
@@ -58,6 +63,7 @@ const TraineePage = ({match, history}) => {
 
     useEffect(() => {
         if (id !== "new") {
+            setLoading(true);
             setEditing(true);
             fetchTrainee(id);
         }
@@ -72,15 +78,17 @@ const TraineePage = ({match, history}) => {
         event.preventDefault();
 
         try {
+            setErrors({});
             if (editing) {
                 await traineesAPI.edit(id, trainee);
+                toast.success("Le stagiaire est bien mise à jour");
             } else {
                 await traineesAPI.add(trainee);
-
+                toast.success("La stagiaire est bien ajouté");
 
                 history.replace("/trainees");
             }
-            setErrors({});
+
         } catch ({response}) {
             const { violations } = response.data;
             if (violations) {
@@ -89,6 +97,7 @@ const TraineePage = ({match, history}) => {
                     apiErrors[propertyPath] = message;
                 });
                 setErrors(apiErrors);
+                toast.error("il y a des erreurs dans votre formulaire!");
             }
         }
 
@@ -98,7 +107,8 @@ const TraineePage = ({match, history}) => {
     return (<>
             {!editing && <Typography variant="h3" align="center" color="error">Création d'un stagiaire</Typography> ||
             <Typography variant="h3" align="center" color="error">Modification d'un stagiaire</Typography>}
-            <form className={classes.root} onSubmit={handleSubmit}>
+            {loading && <FormLoader/>}
+            {!loading && <form className={classes.root} onSubmit={handleSubmit}>
                 <Field name="lastName" label="Nom du Stagiaire" value={trainee.lastName} onChange={handleChange}
                        error={errors.lastName}/>
                 <Field name="firstName" label="Prénom du Stagiaire" value={trainee.firstName} onChange={handleChange}
@@ -124,7 +134,7 @@ const TraineePage = ({match, history}) => {
                         </Button>
                     </FormControl>
                 </Grid>
-            </form>
+            </form>}
         </>
     )
 };

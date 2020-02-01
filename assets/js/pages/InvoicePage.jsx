@@ -8,6 +8,8 @@ import {makeStyles} from "@material-ui/core/styles";
 import FormControl from "@material-ui/core/FormControl";
 import {Link} from "react-router-dom";
 import invoicesAPI from "../services/invoicesAPI";
+import {toast} from "react-toastify";
+import FormLoader from "../components/loaders/FormLoader";
 
 
 const useStyles = makeStyles(theme => ({
@@ -51,15 +53,17 @@ const InvoicePage = ({history, match}) => {
     });
 
     const [editing, setEditing] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const fetchTrainees = async () => {
         try {
             const data = await traineesAPI.findAll();
             setTrainees(data);
+            setLoading(false);
 
             if(!invoice.trainee) setInvoice({...invoice, trainee: data[0].id});
         } catch (error) {
-
+            toast.error("impossible de charger les stagiaires");
             history.replace("/invoices");
         }
     };
@@ -69,8 +73,9 @@ const InvoicePage = ({history, match}) => {
             const { amount, status, trainee} = await invoicesAPI.findOne(id);
 
             setInvoice({amount, status, trainee: trainee.id});
+            setLoading(false);
         } catch (error) {
-
+            toast.error("impossible de charger la facture");
             history.replace("/invoices");
         }
     }
@@ -98,10 +103,12 @@ const InvoicePage = ({history, match}) => {
 
             if(editing){
                 await invoicesAPI.edit(id, invoice);
+                toast.success("La facture est bien mise à jour");
                 history.replace("/invoices");
 
             } else {
                 await invoicesAPI.add(invoice);
+                toast.success("La facture est bien ajouté");
                 history.replace("/invoices");
             }
         } catch ({response}) {
@@ -112,6 +119,7 @@ const InvoicePage = ({history, match}) => {
                     apiErrors[propertyPath] = message;
                 });
                 setErrors(apiErrors);
+                toast.error("il y a des erreurs dans votre formulaire!");
             }
         }
     };
@@ -120,7 +128,8 @@ const InvoicePage = ({history, match}) => {
     return (<>
             {!editing && <Typography variant="h3" align="center" color="error">Création d'une Facture</Typography> ||
             <Typography variant="h3" align="center" color="error">Modification d'une Facture</Typography>}
-            <form onSubmit={handleSubmit}>
+            {loading && <FormLoader/>}
+            {!loading && <form onSubmit={handleSubmit}>
                 <Field name="amount" type="number" label="Montant de la Facture" onChange={handleChange}
                        value={invoice.amount} error={errors.amount}/>
 
@@ -155,8 +164,7 @@ const InvoicePage = ({history, match}) => {
                         </Button>
                     </FormControl>
                 </Grid>
-
-            </form>
+            </form>}
         </>
     );
 };
