@@ -1,113 +1,132 @@
-import React, {useEffect, useState} from 'react';
-import Pagination from "../components/Pagination";
-import TraineeAPI from "../services/traineesAPI";
+import React, {useEffect, useState} from "react";
+import {Link} from "react-router-dom";
+import traineesAPI from "../services/traineesAPI";
+import Field from "../components/forms/Field";
+import {Button, FormControl, Grid, Typography} from "@material-ui/core";
+import {makeStyles} from "@material-ui/core/styles";
 
 
-const TraineePage = props => {
+const useStyles = makeStyles(theme => ({
+    root: {
+        flexGrow: 1,
+        align: 'center',
+    },
+    btn: {
+        '& > *': {
+            margin: theme.spacing(1),
+        },
+    },
+    link: {
+        color: 'white',
+    }
+}));
 
-    const [trainees, setTrainees] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [search, setSearch] = useState('');
+const TraineePage = ({match, history}) => {
 
-    const fetchTrainees = async () => {
+    const {id = "new"} = match.params;
+
+    if (id !== "new") {
+        console.log(+id);
+    }
+
+    const [trainee, setTrainee] = useState({
+        lastName: "",
+        firstName: "",
+        email: "",
+        company: ""
+    });
+
+    const [errors, setErrors] = useState({
+        lastName: "",
+        firstName: "",
+        email: "",
+        company: ""
+    });
+
+    const [editing, setEditing] = useState(false);
+
+    const fetchTrainee = async id => {
         try {
-            const data = await TraineeAPI.findAll();
-            setTrainees(data);
+            const {firstName, lastName, email, company} = await traineesAPI.findOne(id);
+
+            setTrainee({firstName, lastName, email, company});
         } catch (error) {
             console.log(error.response);
+            history.replace("/trainees");
         }
     }
-    useEffect( () => {fetchTrainees()}, []);
 
-    const handleDelete = async id => {
-        const originalTrainees = [...trainees];
-
-        setTrainees(trainees.filter(trainee => trainee.id !== id))
-
-        try {
-            await TraineeAPI.delete(id)
-        } catch (error) {
-            setTrainees(originalTrainees);
-            console.log(error.response)
+    useEffect(() => {
+        if (id !== "new") {
+            setEditing(true);
+            fetchTrainee(id);
         }
+    }, [id]);
+
+    const handleChange = ({currentTarget}) => {
+        const {name, value} = currentTarget;
+        setTrainee({...trainee, [name]: value})
     };
 
-    const handleSearch = ({currentTarget}) => {
-        setSearch(currentTarget.value);
-        setCurrentPage(1);
-    }
+    const handleSubmit = async event => {
+        event.preventDefault();
 
-    const handlePageChange = page => setCurrentPage(page);
+        try {
+            if (editing) {
+                await traineesAPI.edit(id, trainee);
+            } else {
+                await traineesAPI.add(trainee);
 
-    const itemsPerPage = 20;
 
-    const filteredTrainees = trainees.filter(
-        t =>
-            t.firstName.toLowerCase().includes(search.toLowerCase()) ||
-            t.lastName.toLowerCase().includes(search.toLowerCase()) ||
-            t.email.toLowerCase().includes(search.toLowerCase()) ||
-            (t.company && t.company.toLowerCase().includes(search.toLowerCase()))
-    );
+                history.replace("/trainees");
+            }
+            setErrors({});
+        } catch ({response}) {
+            const { violations } = response.data;
+            if (violations) {
+                const apiErrors = {};
+                violations.forEach(({propertyPath, message}) => {
+                    apiErrors[propertyPath] = message;
+                });
+                setErrors(apiErrors);
+            }
+        }
 
-    const paginatedTrainees = Pagination.getData(filteredTrainees, currentPage, itemsPerPage);
+    };
 
-    return (
-        <>
-            <h1 className="text-center text-danger">Liste des Stagiaires</h1>
-            <div className="form-group">
-                <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Rechercher ..."
-                    onChange={handleSearch}
-                    value={search}
-                />
-            </div>
-            <table className="table table-hover text-center">
-                <thead>
-                <tr>
-                    <th>Id.</th>
-                    <th>Stagiaire</th>
-                    <th>Email</th>
-                    <th>Entreprise</th>
-                    <th>Factures</th>
-                    <th>Montant total</th>
-                    <th/>
-                </tr>
-                </thead>
-                <tbody>
-                {paginatedTrainees.map(trainee =>
-                    <tr key={trainee.id}>
-                        <td>{trainee.id}</td>
-                        <td>
-                            <a href="#">{trainee.firstName} {trainee.lastName}</a>
-                        </td>
-                        <td>{trainee.email}</td>
-                        <td>{trainee.company}</td>
-                        <td>
-                        <span className="badge badge-danger">
-                            {trainee.invoices.length}
-                        </span></td>
-                        <td>{trainee.totalAmount.toLocaleString()}</td>
-                        <td>
-                            <button
-                                onClick={() => handleDelete(trainee.id)}
-                                disabled={trainee.invoices.length > 0}
-                                className="btn btn-sm btn-danger">
-                                Supprimer
-                            </button>
-                        </td>
-                    </tr>)}
-                </tbody>
-            </table>
-            {itemsPerPage < filteredTrainees.length && <Pagination
-                currentPage={currentPage}
-                itemsPerPage={itemsPerPage}
-                length={filteredTrainees.length}
-                onPageChanged={handlePageChange}
-            />}
+    const classes = useStyles();
+    return (<>
+            {!editing && <Typography variant="h3" align="center" color="error">Création d'un stagiaire</Typography> ||
+            <Typography variant="h3" align="center" color="error">Modification d'un stagiaire</Typography>}
+            <form className={classes.root} onSubmit={handleSubmit}>
+                <Field name="lastName" label="Nom du Stagiaire" value={trainee.lastName} onChange={handleChange}
+                       error={errors.lastName}/>
+                <Field name="firstName" label="Prénom du Stagiaire" value={trainee.firstName} onChange={handleChange}
+                       error={errors.firstName}/>
+                <Field name="email" label="Email du Stagiaire" type="email" value={trainee.email}
+                       onChange={handleChange} error={errors.email}/>
+                <Field name="company" label="Entreprise du Stagiaire" value={trainee.company} onChange={handleChange}
+                       error={errors.company}/>
+
+                <Grid item xs={12}>
+                    <FormControl fullWidth={true} margin="dense">
+                        <Button type="submit" className={classes.btn} variant="contained" color="secondary">
+                            Enregistrer
+                        </Button>
+                    </FormControl>
+                </Grid>
+                <Grid item xs={12}>
+                    <FormControl fullWidth={true} margin="dense">
+                        <Button type="submit" className={classes.btn} variant="contained" color="secondary">
+                            <Link to="/trainees" className={classes.link}>
+                                Retour à la liste des stagiaires
+                            </Link>
+                        </Button>
+                    </FormControl>
+                </Grid>
+            </form>
         </>
-    );
-}
+    )
+};
 
 export default TraineePage;

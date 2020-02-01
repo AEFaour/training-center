@@ -2,41 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d5d8b255-bc13-4fa8-8b09-34ef027b0960" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/assets/js/components/PrivateRoute.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/js/contexts/AuthContext.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/js/pages/LoginPage.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/js/services/authAPI.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/js/components/forms/Field.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/js/components/forms/Select.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/js/pages/InvoicesPage.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/js/pages/RegisterPage.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/js/pages/TraineesPage.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/js/services/usersAPI.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/js/components/Navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/components/Navbar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/js/pages/InvoicePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/pages/InvoicePage.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/js/pages/LoginPage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/pages/LoginPage.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/js/pages/TraineePage.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/pages/TraineePage.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bundles/apiplatform/graphiql/graphiql.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bundles/apiplatform/graphiql/graphiql.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bundles/apiplatform/graphql-playground/middleware.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bundles/apiplatform/graphql-playground/middleware.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bundles/apiplatform/react/react-dom.production.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bundles/apiplatform/react/react-dom.production.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bundles/apiplatform/react/react.production.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bundles/apiplatform/react/react.production.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bundles/apiplatform/redoc/redoc.standalone.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bundles/apiplatform/redoc/redoc.standalone.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bundles/apiplatform/swagger-ui/swagger-ui-bundle.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bundles/apiplatform/swagger-ui/swagger-ui-bundle.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/bundles/apiplatform/swagger-ui/swagger-ui-standalone-preset.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/bundles/apiplatform/swagger-ui/swagger-ui-standalone-preset.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/var/cache/dev/App_KernelDevDebugContainer.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/App_KernelDevDebugContainer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/var/cache/dev/App_KernelDevDebugContainer.preload.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/App_KernelDevDebugContainer.preload.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/var/cache/dev/App_KernelDevDebugContainer.xml" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/App_KernelDevDebugContainer.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/var/cache/dev/ContainerCKaHg9j/App_KernelDevDebugContainer.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/ContainerCKaHg9j/App_KernelDevDebugContainer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/var/cache/dev/ContainerCKaHg9j/removed-ids.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/ContainerCKaHg9j/removed-ids.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/var/cache/dev/ContainerHxT4TmI/App_KernelDevDebugContainer.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/ContainerHxT4TmI/App_KernelDevDebugContainer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/var/cache/dev/ContainerHxT4TmI/removed-ids.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/ContainerHxT4TmI/removed-ids.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/var/cache/dev/ContainerL9nIwYI/App_KernelDevDebugContainer.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/ContainerL9nIwYI/App_KernelDevDebugContainer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/var/cache/dev/ContainerL9nIwYI/removed-ids.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/ContainerL9nIwYI/removed-ids.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/js/services/invoicesAPI.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/services/invoicesAPI.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/js/services/traineesAPI.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/services/traineesAPI.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/var/cache/dev/profiler/index.csv" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/profiler/index.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/var/cache/dev/twig/03/032fce0312e0a9461286d4d66f0ca0d66961c33bea1c4cdc910dc4a9e832f9d0.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/twig/03/032fce0312e0a9461286d4d66f0ca0d66961c33bea1c4cdc910dc4a9e832f9d0.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/var/cache/dev/twig/14/148f27167e3400ee1f2f9d662296d93dbf9819e34acf64266325dca9bb13e82e.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/twig/14/148f27167e3400ee1f2f9d662296d93dbf9819e34acf64266325dca9bb13e82e.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/var/cache/dev/twig/32/32e4ec89f1f8afff6a15c986de10a115a88aef2341fa19119fbdc578d25efeb6.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/twig/32/32e4ec89f1f8afff6a15c986de10a115a88aef2341fa19119fbdc578d25efeb6.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/var/cache/dev/twig/48/4850f69dd1c1625e33029bcc67cfe54c02a2da2ec33473230c7a72a1462a00ef.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/twig/48/4850f69dd1c1625e33029bcc67cfe54c02a2da2ec33473230c7a72a1462a00ef.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/var/cache/dev/twig/9a/9a0df87d6a91e0ec0184326a35099c5ce27afc58b538978dfce7b43b25df2181.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/twig/9a/9a0df87d6a91e0ec0184326a35099c5ce27afc58b538978dfce7b43b25df2181.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/var/cache/dev/url_generating_routes.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/url_generating_routes.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/var/cache/dev/url_matching_routes.php" beforeDir="false" afterPath="$PROJECT_DIR$/var/cache/dev/url_matching_routes.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/var/log/dev.log" beforeDir="false" afterPath="$PROJECT_DIR$/var/log/dev.log" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -211,7 +190,8 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="js.last.introduce.type" value="CONST" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../first-app" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="editor.preferences.completion" />
   </component>
@@ -263,7 +243,9 @@
       <workItem from="1579270352699" duration="42160000" />
       <workItem from="1579520239975" duration="714000" />
       <workItem from="1579884430317" duration="20446000" />
-      <workItem from="1579905316919" duration="54683000" />
+      <workItem from="1579905316919" duration="55186000" />
+      <workItem from="1580332650986" duration="6953000" />
+      <workItem from="1580410339927" duration="47716000" />
     </task>
     <task id="LOCAL-00001" summary="Installing &amp; Setting up the Application &amp; the Database">
       <created>1577847453483</created>
@@ -335,7 +317,14 @@
       <option name="project" value="LOCAL" />
       <updated>1579929487776</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Set up the authentification &amp; use Material UI">
+      <created>1580008530244</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1580008530244</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -353,49 +342,54 @@
     <MESSAGE value="Modification at the lifecycle of the request &amp; extension of Doctrine" />
     <MESSAGE value="require encore &amp; install React" />
     <MESSAGE value="Create tables &amp; input, install Material ui" />
-    <option name="LAST_COMMIT_MESSAGE" value="Create tables &amp; input, install Material ui" />
+    <MESSAGE value="Set up the authentification &amp; use Material UI" />
+    <option name="LAST_COMMIT_MESSAGE" value="Set up the authentification &amp; use Material UI" />
   </component>
   <component name="WindowStateProjectService">
     <state x="414" y="176" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1579265888904">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="414" y="176" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1579265888904" />
+    <state x="713" y="324" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1580407959354">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="713" y="324" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1580407959354" />
     <state x="765" y="237" key="#com.intellij.ide.util.MemberChooser" timestamp="1579392701035">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="765" y="237" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1579392701035" />
-    <state x="640" y="249" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1578771216552">
+    <state x="640" y="249" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1580410192862">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="640" y="249" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1578771216552" />
+    <state x="640" y="249" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1580410192862" />
     <state x="690" y="276" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1579381823503">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="276" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1579381823503" />
-    <state x="585" y="117" key="CommitChangelistDialog2" timestamp="1579929486327">
+    <state x="585" y="117" key="CommitChangelistDialog2" timestamp="1580008528575">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="585" y="117" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1579929486327" />
-    <state x="740" y="276" key="FileChooserDialogImpl" timestamp="1579903472960">
+    <state x="585" y="117" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1580008528575" />
+    <state x="740" y="276" key="FileChooserDialogImpl" timestamp="1580403803995">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="276" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1579903472960" />
-    <state x="540" y="256" key="IDE.errors.dialog" timestamp="1577832925195">
+    <state x="740" y="276" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1580403803995" />
+    <state x="540" y="256" key="IDE.errors.dialog" timestamp="1580437563816">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="540" y="256" key="IDE.errors.dialog/0.0.1920.1040@0.0.1920.1040" timestamp="1577832925195" />
+    <state x="540" y="256" key="IDE.errors.dialog/0.0.1920.1040@0.0.1920.1040" timestamp="1580437563816" />
     <state x="691" y="335" key="NewPhpClassDialog" timestamp="1579392076944">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="691" y="335" key="NewPhpClassDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1579392076944" />
-    <state x="461" y="163" key="SettingsEditor" timestamp="1579906805567">
+    <state x="461" y="163" key="SettingsEditor" timestamp="1580419704987">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="461" y="163" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1579906805567" />
-    <state x="656" y="345" key="com.intellij.ide.util.TipDialog" timestamp="1579100830653">
+    <state x="461" y="163" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1580419704987" />
+    <state x="656" y="345" key="com.intellij.ide.util.TipDialog" timestamp="1580410352491">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="656" y="345" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1579100830653" />
+    <state x="656" y="345" key="com.intellij.ide.util.TipDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1580410352491" />
     <state x="616" y="240" key="run.anything.popup" timestamp="1579907354294">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

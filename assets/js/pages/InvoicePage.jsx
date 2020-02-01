@@ -1,170 +1,162 @@
-import React, {useEffect, useState} from 'react';
-import Pagination from "../components/Pagination";
-import moment from "moment";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
+import traineesAPI from "../services/traineesAPI";
+import Field from "../components/forms/Field";
+import Select from "../components/forms/Select";
+import {Button, Grid, InputLabel, Typography} from "@material-ui/core";
+import {makeStyles} from "@material-ui/core/styles";
+import FormControl from "@material-ui/core/FormControl";
+import {Link} from "react-router-dom";
 import invoicesAPI from "../services/invoicesAPI";
-import {withStyles, makeStyles} from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
-import {Fab} from '@material-ui/core';
-import {Typography} from '@material-ui/core';
-import Link from '@material-ui/core/Link';
-import { FormControl } from '@material-ui/core';
-import { Input } from '@material-ui/core';
-import { InputLabel } from '@material-ui/core';
 
 
-const STATUS_LABELS = {
-
-    PAID : 'Payée',
-    SENT : 'Envoyée',
-    CANCELLED : 'Annulée',
-}
-
-const StyledTableCell = withStyles(theme => ({
-    head: {
-        backgroundColor: 'red',
-        color: theme.palette.common.white,
-        align: 'center',
-    },
-    body: {
-        fontSize: 14,
-        align: 'center',
-    },
+const useStyles = makeStyles(theme => ({
     root: {
+        flexGrow: 1,
+        align: 'center',
+    },
+    btn: {
         '& > *': {
             margin: theme.spacing(1),
         },
     },
-}))(TableCell);
-
-const StyledTableRow = withStyles(theme => ({
-    root: {
-        '&:nth-of-type(odd)': {
-            backgroundColor: theme.palette.background.default,
-        },
+    link: {
+        color: 'white',
     },
-}))(TableRow);
-
-const useStyles = makeStyles({
-    table: {
-        minWidth: 700,
+    formControl: {
+        margin: theme.spacing(1),
+        minWidth: 120,
     },
-});
+    selectEmpty: {
+        marginTop: theme.spacing(2),
+    },
+}));
 
-const InvoicePage = (props) => {
-    const [invoices, setInvoices] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [search, setSearch] = useState('');
+const InvoicePage = ({history, match}) => {
 
-    const fetchInvoices = async () => {
+    const { id = "new"} = match.params;
+
+    const [invoice, setInvoice] = useState({
+        amount: "",
+        trainee: "",
+        status: "SENT",
+    });
+
+    const [trainees, setTrainees] = useState([]);
+
+    const [errors, setErrors] = useState({
+        amount: "",
+        trainee: "",
+        status: "",
+    });
+
+    const [editing, setEditing] = useState(false);
+
+    const fetchTrainees = async () => {
         try {
-            const data = await invoicesAPI.findAll();
-            setInvoices(data);
+            const data = await traineesAPI.findAll();
+            setTrainees(data);
+
+            if(!invoice.trainee) setInvoice({...invoice, trainee: data[0].id});
         } catch (error) {
-            console.log(error.response);
+
+            history.replace("/invoices");
         }
     };
 
-    useEffect(() => {
-        fetchInvoices();
-    }, []);
-    const handlePageChange = page => setCurrentPage(page);
+    const fetchInvoice = async id => {
+        try{
+            const { amount, status, trainee} = await invoicesAPI.findOne(id);
 
-    const handleDelete = async id => {
-        const orginalInvoices = [...invoices];
-
-        setInvoices(invoices.filter(invoice => invoice.id !== id))
-        try {
-            await invoicesAPI.delete(id);
-            
+            setInvoice({amount, status, trainee: trainee.id});
         } catch (error) {
-            console.log(error.response);
-            setInvoices(orginalInvoices);
+
+            history.replace("/invoices");
         }
     }
 
-    const itemsPerPage = 40;
+    useEffect(() => {
+        fetchTrainees();
+    }, []);
 
-    const handleSearch = ({currentTarget}) => {
-        setSearch(currentTarget.value);
-        setCurrentPage(1);
-    }
+    useEffect(() => {
+        if(id !== "new") {
+            setEditing(true);
+            fetchInvoice(id);
+        }
+    }, [id]);
 
+    const handleChange = ({currentTarget}) => {
+        const {name, value} = currentTarget;
+        setInvoice({...invoice, [name]: value});
+    };
 
-    const filteredInvoices = invoices.filter(
-        i =>
-            i.trainee.firstName.toLowerCase().includes(search.toLowerCase()) ||
-            i.trainee.lastName.toLowerCase().includes(search.toLowerCase()) ||
-            i.amount.toString().startsWith(search.toLowerCase()) ||
-            STATUS_LABELS[i.status].toLowerCase().includes(search.toLowerCase())
-    );
+    const handleSubmit = async event => {
+        event.preventDefault();
 
-    const paginatedInvoices = Pagination.getData(filteredInvoices, currentPage, itemsPerPage);
+        try {
 
-    const formatDate = (strart) => moment(strart).format('DD/MM/YYYY');
+            if(editing){
+                await invoicesAPI.edit(id, invoice);
+                history.replace("/invoices");
+
+            } else {
+                await invoicesAPI.add(invoice);
+                history.replace("/invoices");
+            }
+        } catch ({response}) {
+            const { violations } = response.data;
+            if (violations) {
+                const apiErrors = {};
+                violations.forEach(({propertyPath, message}) => {
+                    apiErrors[propertyPath] = message;
+                });
+                setErrors(apiErrors);
+            }
+        }
+    };
+
     const classes = useStyles();
-    return (
-        <>
-            <Typography variant="h3" align="center" color="error">Liste des factures</Typography>
-            <FormControl>
-                <InputLabel htmlFor="my-input">Rechercher</InputLabel>
-                <Input id="my-input" aria-describedby="my-helper-text" onChange={handleSearch}
-                       value={search} />
-            </FormControl>
-            <TableContainer component={Paper}>
-                <Table className={classes.table} aria-label="customized table">
-                    <TableHead>
-                        <TableRow color="error">
-                            <StyledTableCell>Code</StyledTableCell>
-                            <StyledTableCell align="right">
-                                <Link href="#">Stagiaire</Link>
-                            </StyledTableCell>
-                            <StyledTableCell align="right">Date d'envoi</StyledTableCell>
-                            <StyledTableCell align="right">Statut</StyledTableCell>
-                            <StyledTableCell align="right">Montant</StyledTableCell>
-                            <StyledTableCell align="right">Actions</StyledTableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {paginatedInvoices.map(invoice => (
-                            <StyledTableRow key={invoice.id}>
-                                <StyledTableCell component="th">
-                                    {invoice.chrono}
-                                </StyledTableCell>
-                                <StyledTableCell align="right">{invoice.trainee.firstName} {invoice.trainee.lastName}</StyledTableCell>
-                                <StyledTableCell align="right">{formatDate(invoice.sentAt)}</StyledTableCell>
-                                <StyledTableCell align="right">
-                                    <Fab color="primary" variant="extended">
-                                        {STATUS_LABELS[invoice.status]}
-                                    </Fab>
-                                </StyledTableCell>
-                                <StyledTableCell align="right">{invoice.amount.toLocaleString()}</StyledTableCell>
-                                <StyledTableCell align="right">
-                                    <Button className={classes.root} variant="contained" color="primary">
-                                        Editer
-                                    </Button>
-                                    <Button className={classes.root} variant="contained" color="secondary" onClick={() => handleDelete(invoice.id)}>
-                                        Supprimer
-                                    </Button>
-                                </StyledTableCell>
-                            </StyledTableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-            <Pagination
-                currentPage={currentPage}
-                itemsPerPage={itemsPerPage}
-                length={filteredInvoices.length}
-                onPageChanged={handlePageChange}
-            />
+    return (<>
+            {!editing && <Typography variant="h3" align="center" color="error">Création d'une Facture</Typography> ||
+            <Typography variant="h3" align="center" color="error">Modification d'une Facture</Typography>}
+            <form onSubmit={handleSubmit}>
+                <Field name="amount" type="number" label="Montant de la Facture" onChange={handleChange}
+                       value={invoice.amount} error={errors.amount}/>
+
+                <Select name="trainee" label="Stagiaire" value={invoice.trainee} error={errors.trainee}
+                        onChange={handleChange}>
+
+                    {trainees.map(trainee => <option key={trainee.id}
+                                                     value={trainee.id}>{trainee.firstName} {trainee.lastName}</option>)}
+
+                </Select>
+
+                <Select name="status" label="Status" value={invoice.status} error={errors.status}
+                        onChange={handleChange}>
+                    <option value="SENT">Envoyée</option>
+                    <option value="PAID">Payée</option>
+                    <option value="CANCELLED">Annulée</option>
+                </Select>
+
+                <Grid item xs={12}>
+                    <FormControl fullWidth={true} margin="dense">
+                        <Button type="submit" className={classes.btn} variant="contained" color="secondary">
+                            Enregistrer
+                        </Button>
+                    </FormControl>
+                </Grid>
+                <Grid item xs={12}>
+                    <FormControl fullWidth={true} margin="dense">
+                        <Button type="submit" className={classes.btn} variant="contained" color="secondary">
+                            <Link to="/invoices" className={classes.link}>
+                                Retour à la liste des Factures
+                            </Link>
+                        </Button>
+                    </FormControl>
+                </Grid>
+
+            </form>
         </>
     );
 };

@@ -4,12 +4,15 @@ import '../css/app.css';
 import Navbar from "./components/Navbar";
 import HomePage from "./pages/HomePage";
 import {HashRouter, Switch, Route, withRouter, Redirect} from "react-router-dom";
-import TraineePage from "./pages/TraineePage";
-import InvoicePage from "./pages/InvoicePage";
+import TraineesPage from "./pages/TraineesPage";
+import InvoicesPage from "./pages/InvoicesPage";
 import LoginPage from "./pages/LoginPage";
 import authAPI from "./services/authAPI";
 import AuthContext from "./contexts/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
+import TraineePage from "./pages/TraineePage";
+import InvoicePage from "./pages/InvoicePage";
+import RegisterPage from "./pages/RegisterPage";
 
 
 authAPI.setup();
@@ -29,8 +32,11 @@ const App = () => {
                 <main className="container pt-5">
                     <Switch>
                         <Route path="/login" component={LoginPage} />
-                        <PrivateRoute path="/invoices" component={InvoicePage}/>
-                        <PrivateRoute path="/trainees" component={TraineePage}/>
+                        <Route path="/register" component={RegisterPage} />
+                        <PrivateRoute path="/invoices/:id" component={InvoicePage}/>
+                        <PrivateRoute path="/invoices" component={InvoicesPage}/>
+                        <PrivateRoute path="/trainees/:id" component={TraineePage}/>
+                        <PrivateRoute path="/trainees" component={TraineesPage}/>
                         <Route path="/" component={HomePage}/>
                     </Switch>
                 </main>

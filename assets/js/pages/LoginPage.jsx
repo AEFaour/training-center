@@ -8,6 +8,7 @@ import {InputLabel} from '@material-ui/core';
 import {Button} from '@material-ui/core';
 import {Grid} from '@material-ui/core';
 import AuthContext from "../contexts/AuthContext";
+import Field from "../components/forms/Field";
 
 
 const useStyles = makeStyles(theme => ({
@@ -54,34 +55,8 @@ const LoginPage = ({history}) => {
         <>
             <Typography variant="h3" align="center" color="error">Connexion à l'application</Typography>
             <form className={classes.root} onSubmit={handleSubmit}>
-                <Grid item xs={12}>
-                    <FormControl fullWidth={true} margin="dense">
-                        <InputLabel htmlFor="username">Email</InputLabel>
-                        <Input
-                            type="email"
-                            name="username"
-                            id="username"
-                            aria-describedby="my-helper-text"
-                            value={credentials.username}
-                            onChange={handleChange}
-                            className={(error && "is-invalid")}
-                        />
-                        {error && <p className="invalid-feedback">{error}</p>}
-                    </FormControl>
-                </Grid>
-                <Grid item xs={12}>
-                    <FormControl fullWidth={true} margin="dense">
-                        <InputLabel htmlFor="password">Mot de Passe</InputLabel>
-                        <Input
-                            type="password"
-                            name="password"
-                            id="password"
-                            aria-describedby="my-helper-text"
-                            value={credentials.password}
-                            onChange={handleChange}
-                        />
-                    </FormControl>
-                </Grid>
+                <Field label="Email" name="username" type="email" value={credentials.username} onChange={handleChange} error={error} />
+                <Field label="Mot de Passe" name="password" type="password" value={credentials.password} onChange={handleChange} error="" />
                 <Grid item xs={12}>
                     <FormControl fullWidth={true} margin="dense">
                         <Button type="submit" className={classes.btn} variant="contained" color="secondary">
