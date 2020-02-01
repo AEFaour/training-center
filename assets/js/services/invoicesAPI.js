@@ -1,8 +1,9 @@
 import axios from "axios";
+import {INVOICES_API} from "../config";
 
 function add(invoice) {
     return axios.post(
-        "http://127.0.0.1:8000/api/invoices",
+        INVOICES_API,
         {...invoice, trainee: `/api/trainees/${invoice.trainee}`
         });
 }
@@ -10,29 +11,25 @@ function add(invoice) {
 function edit(id, invoice) {
 
     return axios.put(
-        "http://127.0.0.1:8000/api/invoices/" + id,
+        INVOICES_API + "/" + id,
         {...invoice, trainee: `/api/trainees/${invoice.trainee}`
         });
 }
 
 function findAll() {
-    return  axios.get(
-        "http://127.0.0.1:8000/api/invoices")
+    return  axios.get(INVOICES_API)
         .then(response => response.data['hydra:member']
         );
 }
 
 function findOne(id) {
 
-    return axios.get(
-        "http://127.0.0.1:8000/api/invoices/" + id
-    )
+    return axios.get(INVOICES_API + "/" + id)
         .then(response => response.data);
 }
 
 function deleteInvoice(id){
-    return  axios.delete(
-        "http://127.0.0.1:8000/api/invoices/" + id);
+    return  axios.delete(INVOICES_API + "/" + id);
 }
 
 export default {
